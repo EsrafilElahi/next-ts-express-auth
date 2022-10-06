@@ -6,7 +6,7 @@ type Props = {
 
 function Layout({ children }: Props) {
   return (
-    <div className='w-full h-full bg-blue-400'>
+    <div className='w-screen h-screen flex justify-center items-center bg-blue-400'>
       {children}
     </div>
   )
