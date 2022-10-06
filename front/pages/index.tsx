@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-
+import Image from 'next/future/image'
+import img from '/public/bg.jpg'
 
 const Home: NextPage = () => {
   return (
@@ -15,6 +14,8 @@ const Home: NextPage = () => {
       <h3>h2</h3>
 
       <button className='btn-blue'>salam</button>
+
+      <Image src={img} className="w-[40em] h-[30em]" />
     </div>
   )
 }

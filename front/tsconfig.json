@@ -25,6 +25,9 @@
       ],
       "/types/*": [
         "types/*"
+      ],
+      "/public/*": [
+        "public/*"
       ]
     }
   },

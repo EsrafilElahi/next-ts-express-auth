@@ -2,12 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Oi&family=Sriracha&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Bad Script', cursive;
 }
 
 a {
@@ -24,9 +27,11 @@ a {
   h1 {
     @apply text-2xl;
   }
+
   h2 {
     @apply text-xl;
   }
+
   h3 {
     @apply text-lg
   }
@@ -34,6 +39,6 @@ a {
 
 @layer components {
   .btn-blue {
-    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
   }
 }
