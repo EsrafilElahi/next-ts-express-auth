@@ -14,6 +14,9 @@ class MyDocument extends Document {
       <Html>
         <title>typescript nextjs express auth</title>
         <Head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link href="https://fonts.googleapis.com/css2?family=Bad+Script&display=swap" rel="stylesheet" />
         </Head>
         <body>
           <Main />
