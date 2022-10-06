@@ -1,0 +1,31 @@
+{
+  "name": "next-ts-form",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@svgr/webpack": "^6.4.0",
+    "axios": "^1.0.0",
+    "axios-auth-refresh": "^3.3.4",
+    "next": "12.3.1",
+    "next-images": "^1.8.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.8.2",
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "autoprefixer": "^10.4.12",
+    "eslint": "8.24.0",
+    "eslint-config-next": "12.3.1",
+    "postcss": "^8.4.17",
+    "tailwindcss": "^3.1.8",
+    "typescript": "4.8.4"
+  }
+}
