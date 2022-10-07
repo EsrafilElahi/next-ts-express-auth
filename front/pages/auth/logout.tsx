@@ -5,7 +5,7 @@ import Router from 'next/router'
 
 type Props = {}
 
-const logout: NextPageLayout = ({ }: Props) => {
+const Logout: NextPageLayout = ({ }: Props) => {
 
   console.log(Router)
 
@@ -21,5 +21,5 @@ const logout: NextPageLayout = ({ }: Props) => {
   )
 }
 
-logout.getLayout = (page) => <Layout>{page}</Layout>
-export default logout
+Logout.getLayout = (page) => <Layout title="logout">{page}</Layout>
+export default Logout

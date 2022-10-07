@@ -10,5 +10,5 @@ const Home: NextPageLayout = () => {
   )
 }
 
-Home.getLayout = (page) => <Layout>{page}</Layout>
+Home.getLayout = (page) => <Layout title="index page">{page}</Layout>
 export default Home

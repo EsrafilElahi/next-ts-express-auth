@@ -17,5 +17,5 @@ const Dashboard: NextPageLayout = (props: Props) => {
   )
 }
 
-Dashboard.getLayout = (page) => <Layout>{page}</Layout>
+Dashboard.getLayout = (page) => <Layout title="dashboard">{page}</Layout>
 export default Dashboard

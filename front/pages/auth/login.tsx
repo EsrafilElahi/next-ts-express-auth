@@ -35,23 +35,23 @@ const Login: NextPageLayout = ({ }: Props) => {
   return (
     <div className='flex flex-col justify-center items-center w-[30%] h-[80%] rounded-md bg-blue-500 p-3 gap-5'>
       <div className='flex flex-col'>
-        <label className='mb-2' htmlFor="email">email</label>
+        <label className='mb-1 ml-1' htmlFor="email">email</label>
         <input className='input' name='email' type="email" value={loginData.email} onChange={(e) => handleAllInputs(e)} />
       </div>
 
       <div className='flex flex-col'>
-        <label className='mb-2' htmlFor="password">password</label>
+        <label className='mb-1 ml-1' htmlFor="password">password</label>
         <input className='input' name='password' type="text" value={loginData.password} onChange={(e) => handleAllInputs(e)} />
       </div>
 
       <button className='btn-blue' onClick={handleLogin}>login</button>
 
       <Link href=""><a className='link'>forget password</a></Link>
-      <span>Don’t have account ? <Link href=""><a className='link'>Click here</a></Link></span>
+      <span>Don’t have account ? <Link href="/auth/register"><a className='link'>Click here</a></Link></span>
 
     </div>
   )
 }
 
-Login.getLayout = (page) => <Layout>{page}</Layout>
+Login.getLayout = (page) => <Layout title="login">{page}</Layout>
 export default Login
