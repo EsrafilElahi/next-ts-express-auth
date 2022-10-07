@@ -38,10 +38,18 @@ a {
   h3 {
     @apply text-lg
   }
+
+  .link {
+    @apply text-teal-400 hover:text-teal-300
+  }
 }
 
 @layer components {
   .btn-blue {
-    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
+    @apply bg-green-400 text-white py-2 px-7 font-bold rounded hover:bg-green-500 transition;
+  }
+
+  .input {
+    @apply rounded-md py-2 px-3 outline-0
   }
 }

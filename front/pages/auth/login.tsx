@@ -33,21 +33,21 @@ const Login: NextPageLayout = ({ }: Props) => {
   }
 
   return (
-    <div className='flex flex-col justify-center items-start w-[30%] h-[80%] rounded-md bg-blue-500 p-3'>
-      <div>
-        <label htmlFor="email">email</label>
-        <input name='email' type="email" value={loginData.email} onChange={(e) => handleAllInputs(e)} />
+    <div className='flex flex-col justify-center items-center w-[30%] h-[80%] rounded-md bg-blue-500 p-3 gap-5'>
+      <div className='flex flex-col'>
+        <label className='mb-2' htmlFor="email">email</label>
+        <input className='input' name='email' type="email" value={loginData.email} onChange={(e) => handleAllInputs(e)} />
       </div>
 
-      <div>
-        <label htmlFor="password">password</label>
-        <input name='password' type="text" value={loginData.password} onChange={(e) => handleAllInputs(e)} />
+      <div className='flex flex-col'>
+        <label className='mb-2' htmlFor="password">password</label>
+        <input className='input' name='password' type="text" value={loginData.password} onChange={(e) => handleAllInputs(e)} />
       </div>
 
-      <button onClick={handleLogin}>login</button>
+      <button className='btn-blue' onClick={handleLogin}>login</button>
 
-      <Link href=""><a>forget password</a></Link>
-      <span>Don’t have account ? <Link href=""><a>Click here</a></Link></span>
+      <Link href=""><a className='link'>forget password</a></Link>
+      <span>Don’t have account ? <Link href=""><a className='link'>Click here</a></Link></span>
 
     </div>
   )
