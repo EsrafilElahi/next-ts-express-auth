@@ -2,12 +2,10 @@ import React, { useState, useEffect, Dispatch, ChangeEvent, } from 'react'
 import Layout from '/components/Layout'
 import { NextPageLayout } from '../_app'
 import Link from 'next/link'
+import type { IPasswords } from '/types/types'
 
 type Props = {}
-interface IPasswords {
-  pass: string,
-  confirmPass: string
-}
+
 
 const ForgetPassword: NextPageLayout = (props: Props) => {
   const [passwords, setPasswords] = useState<IPasswords>({ pass: '', confirmPass: '' })

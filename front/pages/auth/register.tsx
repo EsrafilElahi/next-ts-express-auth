@@ -2,17 +2,9 @@ import React, { useState, useEffect, ChangeEvent } from 'react'
 import Layout from '/components/Layout'
 import type { NextPageLayout } from 'pages/_app'
 import Router from 'next/router'
+import type { IRegisterData } from '/types/types'
 
 type Props = {}
-
-interface IRegisterData {
-  name: string,
-  family: string,
-  job: string,
-  birthData: string,
-  age: string,
-  gender: string
-}
 
 const Register: NextPageLayout = (props: Props) => {
   const [registerData, setRegisterData] = useState<IRegisterData>({

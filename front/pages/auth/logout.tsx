@@ -9,7 +9,6 @@ const Logout: NextPageLayout = ({ }: Props) => {
 
   console.log(Router)
 
-
   return (
     <div className='flex flex-col justify-center items-center w-[30%] h-[80%] rounded-md bg-blue-500 p-3 gap-10'>
       <h1>you logged out</h1>

@@ -2,13 +2,9 @@ import React, { useState, useEffect, Dispatch, ChangeEvent, } from 'react'
 import Layout from '/components/Layout'
 import { NextPageLayout } from '../_app'
 import Link from 'next/link'
+import type { ILoginData } from '/types/types'
 
 type Props = {}
-interface ILoginData {
-  email: string,
-  password: string
-}
-
 
 const Login: NextPageLayout = ({ }: Props) => {
   const [loginData, setLoginData] = useState<ILoginData>({
@@ -33,7 +29,7 @@ const Login: NextPageLayout = ({ }: Props) => {
   }
 
   return (
-      <div className='flex flex-col justify-center items-center w-[30%] h-[80%] rounded-md bg-blue-500 p-3 gap-5'>
+    <div className='flex flex-col justify-center items-center w-[30%] h-[80%] rounded-md bg-blue-500 p-3 gap-5'>
       <div className='flex flex-col'>
         <label className='mb-1 ml-1' htmlFor="email">email</label>
         <input className='input' name='email' type="email" value={loginData.email} onChange={(e) => handleAllInputs(e)} />
@@ -47,7 +43,7 @@ const Login: NextPageLayout = ({ }: Props) => {
       <button className='btn-blue' onClick={handleLogin}>login</button>
 
       <Link href="/auth/forget-password"><a className='link'>forget password</a></Link>
-      <Link href="/auth/reset-password"><a className='link'>reset password</a></Link>
+      {/* <Link href="/auth/reset-password"><a className='link'>reset password</a></Link> */}
       <span>Don’t have account ? <Link href="/auth/register"><a className='link'>Click here</a></Link></span>
 
     </div>
