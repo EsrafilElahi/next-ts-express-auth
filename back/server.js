@@ -2,12 +2,14 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const cookieparser = require('cookie-parser');
 const setHeadersOrigin = require("./middlewares/setHeadersOrigin");
 const handleErrors = require("./middlewares/handleErrors")
 const sequelize = require("./db/connect_db");
 const authRoutes = require("./routes/auth");
 const dashboardRoutes = require("./routes/dashboard");
-const adminRoutes = require("./routes/adminPannel")
+const adminRoutes = require("./routes/adminPannel");
+const { authenticate, authAdmin } = require("./middlewares/authenticated")
 
 
 dotenv.config()
@@ -15,7 +17,8 @@ const app = express();
 const port = process.env.PROJECT_PORT || 5050;
 
 // middlewares
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieparser())
 app.use(express.json());
 let publicDir = path.join(__dirname, "public")
 app.use(express.static(publicDir));
@@ -28,8 +31,8 @@ app.get("/", (req, res) => {
   res.send("Home Page");
 });
 app.get("/auth", authRoutes);
-app.get("/dashboard", dashboardRoutes) // handle authentication middleware
-app.get("/admin-pannel", adminRoutes) // handle authentication & admin middleware
+app.get("/dashboard", authenticate, dashboardRoutes) // handle authentication middleware
+app.get("/admin-pannel", authenticate, authAdmin, adminRoutes) // handle authentication & admin middleware
 
 // 404 page
 app.get("*", (req, res) => {

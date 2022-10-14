@@ -4,7 +4,7 @@ const router = express.Router()
 
 // routes handles
 router.get("/", async (req, res) => {
-  // handle dashboard
+  res.send("dashboard page")
 })
 
 

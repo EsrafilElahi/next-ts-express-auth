@@ -44,6 +44,9 @@ const Users = sequelize.define("Users", {
   isAdmin: {
     type: DataTypes.BOOLEAN,
     defaultValue: false
+  },
+  refreshToken: {
+    type: DataTypes.ARRAY(DataTypes.STRING)
   }
 })
 

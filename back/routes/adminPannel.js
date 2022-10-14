@@ -4,7 +4,7 @@ const router = express.Router()
 
 // routes handles
 router.get("/", async (req, res) => {
-  // handle admin pannel
+  res.send("admin pannel")
 })
 
 
