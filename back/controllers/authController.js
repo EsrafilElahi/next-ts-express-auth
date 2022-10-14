@@ -42,7 +42,7 @@ const loginController = async (req, res) => {
   const { accessToken, refreshToken } = await generateTokens(userExist)
 
   // set in header
-  res.header("accessToken", accessToken)
+  res.header("X-Auth", accessToken)
 
   // set in cookie
   res.cookie('jwt', refreshToken, {
@@ -61,8 +61,12 @@ const loginController = async (req, res) => {
 
 }
 
+const logoutController = async (req, res) => {
+  return res.clearCookie("jwt").status(200).send("Successfully logged out");
+}
+
 const refreshTokenController = async (req, res) => {
-  const refresh_token = req.cookie.jwt
+  const refresh_token = req.cookies.jwt
   !refresh_token && res.status(406).send("not Authorized!")
 
   try {
@@ -80,5 +84,6 @@ const refreshTokenController = async (req, res) => {
 module.exports = {
   registerController,
   loginController,
+  logoutController,
   refreshTokenController
 }
