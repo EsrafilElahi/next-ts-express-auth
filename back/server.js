@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 let publicDir = path.join(__dirname, "public")
 app.use(express.static(publicDir));
-app.use(cors({ origin: `http://localhost:${port ? port : 5000}/` }));
+app.use(cors({ origin: `http://localhost:${port ? port : 5050}/` }));
 
 // routes
 app.get("/", (req, res) => {
