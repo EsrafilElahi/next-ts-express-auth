@@ -3,7 +3,7 @@ const Users = require("../models/users");
 const authenticate = async (req, res, next) => {
   // const token = req.header("jwt");
   const refresh_token = req.cookie.jwt
-  !refresh_token && res.status(406).send("not Authorized!")
+  !refresh_token && res.status(406).send("no any token!")
 
   try {
     const verifiedToken = await jwt.verify(refresh_token, process.env.JWT_SECRET_KEY)
