@@ -19,15 +19,16 @@ const Users = sequelize.define("Users", {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
   password: {
     DataTypes: DataTypes.STRING,
     allowNull: false,
   },
-  confirmPassword: {
-    DataTypes: DataTypes.STRING,
-    allowNull: false,
-  },
+  // confirmPassword: {
+  //   DataTypes: DataTypes.STRING,
+  //   allowNull: false,
+  // },
   job: {
     type: DataTypes.STRING,
   },

@@ -5,6 +5,9 @@ const dotenv = require("dotenv");
 const setHeadersOrigin = require("./middlewares/setHeadersOrigin");
 const handleErrors = require("./middlewares/handleErrors")
 const sequelize = require("./db/connect_db");
+const authRoutes = require("./routes/auth");
+const dashboardRoutes = require("./routes/dashboard");
+const adminRoutes = require("./routes/adminPannel")
 
 
 dotenv.config()
@@ -24,6 +27,11 @@ app.use(cors({ origin: `http://localhost:${port ? port : 5050}/` }));
 app.get("/", (req, res) => {
   res.send("Home Page");
 });
+app.get("/auth", authRoutes);
+app.get("/dashboard", dashboardRoutes) // handle authentication middleware
+app.get("/admin-pannel", adminRoutes) // handle authentication & admin middleware
+
+// 404 page
 app.get("*", (req, res) => {
   res.send("404 not found page");
 });
