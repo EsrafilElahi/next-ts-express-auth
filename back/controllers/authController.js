@@ -17,8 +17,8 @@ const registerController = async (req, res) => {
   try {
     // hashed password
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    const savedUser = new Users({ ...req.body, password: hashedPassword });
+    const hashedPassword = await bcrypt.hash(req.body.gozar, salt);
+    const savedUser = await new Users({ ...req.body, gozar: hashedPassword });
     await savedUser.save();
     res.status(201).json({ message: "user created successfully!", user: savedUser });
   } catch (err) {
@@ -36,7 +36,7 @@ const loginController = async (req, res) => {
   !userExist && res.status(409).send("user doesn't exist!");
 
   // check password
-  const validPassword = await bcrypt.compare(req.body.password, userExist.password);
+  const validPassword = await bcrypt.compare(req.body.gozar, userExist.gozar);
   !validPassword && res.status(400).send("userName or password is invalid!");
 
   const { accessToken, refreshToken } = await generateTokens(userExist)

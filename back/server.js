@@ -30,9 +30,9 @@ app.use(cors({ origin: `http://localhost:${port ? port : 5050}/` }));
 app.get("/", (req, res) => {
   res.send("Home Page");
 });
-app.get("/auth", authRoutes);
-app.get("/dashboard", authenticate, dashboardRoutes) // handle authentication middleware
-app.get("/admin-pannel", authenticate, authAdmin, adminRoutes) // handle authentication & admin middleware
+// app.get("/auth", authRoutes);
+// app.get("/dashboard", authenticate, dashboardRoutes) // handle authentication middleware
+// app.get("/admin-pannel", authenticate, authAdmin, adminRoutes) // handle authentication & admin middleware
 
 // 404 page
 app.get("*", (req, res) => {

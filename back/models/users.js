@@ -14,21 +14,23 @@ const Users = sequelize.define("Users", {
   },
   lastName: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
   },
-  password: {
-    DataTypes: DataTypes.STRING,
-    allowNull: false,
-  },
+  // pass: {
+  //   DataTypes: DataTypes.INTEGER,
+  // },
   // confirmPassword: {
   //   DataTypes: DataTypes.STRING,
   //   allowNull: false,
   // },
+  gozar: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   job: {
     type: DataTypes.STRING,
   },
@@ -36,7 +38,7 @@ const Users = sequelize.define("Users", {
     type: DataTypes.DATEONLY,
   },
   age: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
   },
   gender: {
     type: DataTypes.STRING

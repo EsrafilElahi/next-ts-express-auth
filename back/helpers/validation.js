@@ -4,7 +4,7 @@ const registerSchema = Joi.object({
   firstName: Joi.string().required(),
   lastName: Joi.string(),
   email: Joi.string().email().required(),
-  password: Joi.string().min(4).required(),
+  gozar: Joi.string().min(4).required(),
   passwordConfirm: Joi.string().required().valid(Joi.ref("password")),
   job: Joi.string(),
   birthDate: Joi.date(),
@@ -15,7 +15,7 @@ const registerSchema = Joi.object({
 
 const loginSchema = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().min(4).required(),
+  gozar: Joi.string().min(4).required(),
 });
 
 const validateRegister = (data) => {
