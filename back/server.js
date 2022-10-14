@@ -1,14 +1,15 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
-const dotenv = require("dotenv").config();
+const dotenv = require("dotenv");
 const sequelize = require("./db/connect_db");
 
+dotenv.config()
 const app = express();
 const port = process.env.PROJECT_PORT || 5050;
 
 // middlewares
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 let publicDir = path.join(__dirname, "public")
 app.use(express.static(publicDir));
