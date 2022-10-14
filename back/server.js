@@ -10,6 +10,7 @@ const authRoutes = require("./routes/auth");
 const dashboardRoutes = require("./routes/dashboard");
 const adminRoutes = require("./routes/adminPannel");
 const { authenticate, authAdmin } = require("./middlewares/authenticated")
+const Users = require("./models/users")
 
 
 dotenv.config()
@@ -27,12 +28,13 @@ app.use(handleErrors);
 app.use(cors({ origin: `http://localhost:${port ? port : 5050}/` }));
 
 // routes
-app.get("/", (req, res) => {
-  res.send("Home Page");
+app.get("/", async (req, res) => {
+  const users = await Users.findAll()
+  res.json({ msg: "Home Page", users: users || 'not users' });
 });
-// app.get("/auth", authRoutes);
-// app.get("/dashboard", authenticate, dashboardRoutes) // handle authentication middleware
-// app.get("/admin-pannel", authenticate, authAdmin, adminRoutes) // handle authentication & admin middleware
+app.use("/auth", authRoutes);
+app.use("/dashboard", authenticate, dashboardRoutes) // handle authentication middleware
+app.use("/admin-pannel", authenticate, authAdmin, adminRoutes) // handle authentication & admin middleware
 
 // 404 page
 app.get("*", (req, res) => {

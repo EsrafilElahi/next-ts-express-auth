@@ -3,10 +3,10 @@ const sequelize = require("../db/connect_db")
 
 const Users = sequelize.define("Users", {
   id: {
-    type: DataTypes.UUID,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     allowNull: false,
-    defaultValue: DataTypes.UUIDV4
+    autoIncrement: true,
   },
   firstName: {
     type: DataTypes.STRING,
@@ -35,7 +35,7 @@ const Users = sequelize.define("Users", {
     type: DataTypes.STRING,
   },
   birthData: {
-    type: DataTypes.DATEONLY,
+    type: DataTypes.STRING,
   },
   age: {
     type: DataTypes.INTEGER,

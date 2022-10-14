@@ -1,7 +1,8 @@
-const express = require("express");
+// const express = require("express");
+const { Router } = require("express")
 const { registerController, loginController, logoutController, refreshTokenController } = require("../controllers/authController")
 const { authenticate } = require("../middlewares/authenticated")
-const router = express.Router()
+const router = Router();
 
 // routes handle
 router.post("/register", registerController);

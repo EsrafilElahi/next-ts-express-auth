@@ -7,23 +7,29 @@ const generateTokens = require("../helpers/generateTokens");
 
 const registerController = async (req, res) => {
   // check validator
-  const { error } = validateRegister(req.body);
-  error && res.status(400).send('validation error!');
+  // const { error } = validateRegister(req.body);
+  // if (error) {
+  //   return res.status(400).send('validation error!');
+  // }
+
+  console.log("Users :", Users)
 
   // check user exist
   const userExist = await Users.findOne({ email: req.body.email });
   userExist && res.status(409).send("user already exist!");
 
-  try {
-    // hashed password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.gozar, salt);
-    const savedUser = await new Users({ ...req.body, gozar: hashedPassword });
-    await savedUser.save();
-    res.status(201).json({ message: "user created successfully!", user: savedUser });
-  } catch (err) {
-    res.status(500).send("an error accured in creating user");
-  }
+  res.send("userExist no error")
+
+  // try {
+  //   // hashed password
+  //   const salt = await bcrypt.genSalt(10);
+  //   const hashedPassword = await bcrypt.hash(req.body.gozar, salt);
+  //   const savedUser = new Users({ ...req.body, gozar: hashedPassword });
+  //   await savedUser.save();
+  //   res.status(201).json({ message: "user created successfully!", user: savedUser });
+  // } catch (err) {
+  //   res.status(500).send("an error accured in creating user");
+  // }
 }
 
 const loginController = async (req, res) => {
