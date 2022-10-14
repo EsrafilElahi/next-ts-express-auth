@@ -2,7 +2,10 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const setHeadersOrigin = require("./middlewares/setHeadersOrigin");
+const handleErrors = require("./middlewares/handleErrors")
 const sequelize = require("./db/connect_db");
+
 
 dotenv.config()
 const app = express();
@@ -13,6 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 let publicDir = path.join(__dirname, "public")
 app.use(express.static(publicDir));
+app.use(setHeadersOrigin);
+app.use(handleErrors);
 app.use(cors({ origin: `http://localhost:${port ? port : 5050}/` }));
 
 // routes
