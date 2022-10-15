@@ -7,8 +7,8 @@ const { Sequelize } = require("sequelize");
 //   dialect: 'mysql'
 // })
 
-const sequelize = new Sequelize('sql6526313', 'sql6526313', 'WeSgVr6xQR', {
-  host: 'sql6.freemysqlhosting.net',
+const sequelize = new Sequelize('esrafil', 'root', '', {
+  host: 'localhost',
   dialect: 'mysql'
 });
 

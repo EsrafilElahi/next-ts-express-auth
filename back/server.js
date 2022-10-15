@@ -29,8 +29,8 @@ app.use(cors({ origin: `http://localhost:${port ? port : 5050}/` }));
 
 // routes
 app.get("/", async (req, res) => {
-  const users = await Users.findAll()
-  res.json({ msg: "Home Page", users: users || 'not users' });
+  // const users = await Users.findAll()
+  res.json({ msg: "Home Page" });
 });
 app.use("/auth", authRoutes);
 app.use("/dashboard", authenticate, dashboardRoutes) // handle authentication middleware
