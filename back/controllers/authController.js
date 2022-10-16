@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Users = require("../models/users");
+const UserToken = require("../models/userToken");
 const { validateRegister, validateLogin } = require("../helpers/validation");
 const generateTokens = require("../helpers/generateTokens");
 
@@ -66,8 +67,23 @@ const loginController = async (req, res) => {
 
 }
 
-const logoutController = async (req, res) => {
-  return res.clearCookie("jwt").status(200).send("Successfully logged out");
+// const logoutController = async (req, res) => {
+//   return res.clearCookie("jwt").status(200).send("Successfully logged out");
+// }
+
+const logoutController = async (req, res, next) => {
+  // check token exist in userToken model
+  const existUserToken = await UserToken.findOne({ token: req.body.refreshToken });
+  !existUserToken && res.status(404).send("token not found -> logged out successfully!")
+
+  try {
+    // remove token
+    await existUserToken.destroy()
+    res.status(200).send("logged out sucessfully");
+  } catch (err) {
+    res.status(500).json({ message: "Internal Server Error", error: err });
+  }
+
 }
 
 const refreshTokenController = async (req, res) => {
