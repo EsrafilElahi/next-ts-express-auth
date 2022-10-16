@@ -7,7 +7,8 @@ const Users = sequelize.define("Users", {
     primaryKey: true,
     allowNull: false,
     autoIncrement: true,
-    defaultValue: 1
+    defaultValue: 1,
+    unique: true,
   },
   firstName: {
     type: DataTypes.STRING,
@@ -47,9 +48,6 @@ const Users = sequelize.define("Users", {
   isAdmin: {
     type: DataTypes.BOOLEAN,
     defaultValue: false
-  },
-  refreshToken: {
-    type: DataTypes.ARRAY(DataTypes.STRING)
   }
 })
 
