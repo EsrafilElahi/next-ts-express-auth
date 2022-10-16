@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require("../db/connect_db")
 
-const userToken = sequelize.define("Users", {
-  userId: {
+const UserToken = sequelize.define("Users", {
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     allowNull: false,
@@ -18,4 +18,4 @@ const userToken = sequelize.define("Users", {
 
 })
 
-module.exports = userToken
+module.exports = UserToken

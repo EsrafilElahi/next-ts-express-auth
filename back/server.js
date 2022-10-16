@@ -7,6 +7,7 @@ const setHeadersOrigin = require("./middlewares/setHeadersOrigin");
 const handleErrors = require("./middlewares/handleErrors")
 const sequelize = require("./db/connect_db");
 const authRoutes = require("./routes/auth");
+const refreshTokenRoutes = require("./routes/refreshToken")
 const dashboardRoutes = require("./routes/dashboard");
 const adminRoutes = require("./routes/adminPannel");
 const { authenticate, authAdmin } = require("./middlewares/authenticated")
@@ -33,6 +34,7 @@ app.get("/", async (req, res) => {
   res.json({ msg: "Home Page" });
 });
 app.use("/auth", authRoutes);
+app.use("/refreshToken", refreshTokenRoutes)
 app.use("/dashboard", authenticate, dashboardRoutes) // handle authentication middleware
 app.use("/admin-pannel", authenticate, authAdmin, adminRoutes) // handle authentication & admin middleware
 

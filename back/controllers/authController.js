@@ -45,24 +45,23 @@ const loginController = async (req, res) => {
   const validPassword = await bcrypt.compare(req.body.gozar, userExist.gozar);
   !validPassword && res.status(400).send("userName or password is invalid!");
 
-  const { accessToken, refreshToken } = await generateTokens(userExist)
 
-  // set in header
-  res.header("X-Auth", accessToken)
+  // // set in header
+  // res.header("X-Auth", accessToken)
 
-  // set in cookie
-  res.cookie('jwt', refreshToken, {
-    httpOnly: true,
-    sameSite: "none",
-    secure: true,
-    maxAge: 24 * 60 * 60 * 1000
-  });
-  return res.json({ accessToken });
+  // // set in cookie
+  // res.cookie('jwt', refreshToken, {
+  //   httpOnly: true,
+  //   sameSite: "none",
+  //   secure: true,
+  //   maxAge: 24 * 60 * 60 * 1000
+  // });
 
   try {
-
+    const { accessToken, refreshToken } = await generateTokens(userExist)
+    res.status(200).json({ message: "login successfully!", accessToken, refreshToken });
   } catch (err) {
-
+    res.status(500).json({ message: 'error login!', error: err });
   }
 
 }
@@ -78,7 +77,7 @@ const refreshTokenController = async (req, res) => {
   try {
     const verifiedToken = jwt.verify(refresh_token, process.env.JWT_SECRET_KEY)
     !verifiedToken && res.status(406).send("not Authorized!")
-    const accessToken = jwt.sign({ userId: user?.Id }, process.env.JWT_SECRET_KEY, { expiresIn: "10m" });
+    const accessToken = jwt.sign({ id: user?.Id }, process.env.JWT_SECRET_KEY, { expiresIn: "10m" });
 
     return res.status(201).json({ accessToken: accessToken })
   } catch (error) {
