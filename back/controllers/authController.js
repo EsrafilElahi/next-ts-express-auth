@@ -68,7 +68,7 @@ const loginController = async (req, res) => {
 }
 
 // const logoutController = async (req, res) => {
-//   return res.clearCookie("jwt").status(200).send("Successfully logged out");
+//   return res.clearCookie("jwt", { httpOnly: true, sameSite: 'None', secure: true }).status(200).send("Successfully logged out");
 // }
 
 const logoutController = async (req, res, next) => {
