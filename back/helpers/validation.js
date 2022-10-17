@@ -4,18 +4,19 @@ const registerSchema = Joi.object({
   firstName: Joi.string().required(),
   lastName: Joi.string(),
   email: Joi.string().email().required(),
-  gozar: Joi.string().min(4).required(),
+  password: Joi.string().min(4).required(),
   passwordConfirm: Joi.string().required().valid(Joi.ref("password")),
   job: Joi.string(),
   birthDate: Joi.date(),
   age: Joi.number(),
   gender: Joi.string(),
   isAdmin: Joi.boolean(),
+  refreshToken: Joi.string(),
 });
 
 const loginSchema = Joi.object({
   email: Joi.string().email().required(),
-  gozar: Joi.string().min(4).required(),
+  password: Joi.string().min(4).required(),
 });
 
 const validateRegister = (data) => {

@@ -92,6 +92,9 @@ const UserSchema = new mongoose.Schema(
     isAdmin: {
       type: Boolean,
     },
+    refreshToken: {
+      type: String,
+    },
   },
   { timestamps: true }, // to build createdAt & updatedAt fields automatically
   { collections: "users" }
