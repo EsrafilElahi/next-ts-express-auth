@@ -4,6 +4,7 @@ const Users = require("../models/users");
 const { validateRegister, validateLogin } = require("../helpers/validation");
 const generateTokens = require("../helpers/generateTokens");
 
+
 const registerController = async (req, res) => {
   // check validator
   const { error } = validateRegister(req.body);
@@ -76,8 +77,23 @@ const logoutController = async (req, res) => {
   const refreshToken = cookies.jwt;
 
   // refresh token in db
-  const 
+  const foundUser = await Users.findOne({ refreshToken: refreshToken });
+  if (!foundUser) {
+    res.clearCookie("jwt", {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+    });
+    res.status(204).send("logged out successfully!");
+  }
 
+  try {
+    // Delete refreshToken in db
+    foundUser.refreshToken = "";
+    res.status(200).send("logged out successfully!");
+  } catch (err) {
+    res.status(500).send("logged out failed!", err);
+  }
 };
 
 const refreshTokenController = async (req, res) => {
