@@ -45,6 +45,9 @@ const loginController = async (req, res) => {
     // create tokens
     const { accessToken, refreshToken } = await generateTokens(userExist);
 
+    // set refreshToken to Users model
+    userExist.refreshToken = refreshToken;
+
     // set in header
     res.header("Authorization", refreshToken);
 

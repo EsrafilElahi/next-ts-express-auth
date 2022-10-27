@@ -10,6 +10,7 @@ const authRoutes = require("./routes/auth");
 const refreshTokenRoutes = require("./routes/refreshToken");
 const dashboardRoutes = require("./routes/dashboard");
 const adminRoutes = require("./routes/adminPannel");
+const usersRoutes = require("./routes/users");
 const { authenticate, authAdmin } = require("./middlewares/authenticated");
 const Users = require("./models/users");
 
@@ -33,8 +34,11 @@ app.get("/", async (req, res) => {
 });
 app.use("/auth", authRoutes);
 app.use("/refreshToken", refreshTokenRoutes);
-app.use("/dashboard", authenticate, dashboardRoutes); // handle authentication middleware
-app.use("/admin-pannel", authenticate, authAdmin, adminRoutes); // handle authentication & admin middleware
+
+app.use(authenticate) // all below routes must be authenticated
+app.use("/admin-pannel", authAdmin, adminRoutes); // handle authentication & admin middleware
+app.use("/dashboard", dashboardRoutes);
+app.use("/users", usersRoutes);
 
 // 404 page
 app.get("*", (req, res) => {
