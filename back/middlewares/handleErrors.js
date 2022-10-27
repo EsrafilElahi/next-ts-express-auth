@@ -3,7 +3,10 @@ const handleErrors = (err, req, res, next) => {
   const message = err.message;
   const data = err.data;
 
-  res.status(status).json({ "custom error data from handleErrors" : data, "custom error message from handleErrors" : message });
+  res.status(status).json({ 
+    "custom error data from handleErrors data :": data, 
+    "custom error message from handleErrors message :" : message 
+  });
 };
 
 module.exports = handleErrors;

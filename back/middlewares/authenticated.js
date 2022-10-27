@@ -1,18 +1,17 @@
-const Users = require("../models/users");
+const jwt = require("jsonwebtoken");
 
 const authenticate = async (req, res, next) => {
-  const authHeader = req.headers["authorization" || "Authorization"];
-  !authHeader && res.status(404).send("token not found!");
-  const token = authHeader.split(" ")[1];
+  
+  !req.cookies.jwt && res.status(401).send("unAuthorized!");
+  const token = req.cookies.jwt;
 
   try {
-    const verifiedToken = await jwt.verify(token, process.env.JWT_SECRET_KEY);
-    !verifiedToken && res.status(403).send("invalid token!");
-    console.log("user.user in authenticated middleware :", res.user);
+    const verifiedToken = jwt.verify(token, process.env.SECRET_KEY);
+    !verifiedToken && res.status(403).send("invalid token inside try");
     req.user = verifiedToken.id;
     return next();
   } catch (err) {
-    res.status(403).send("invalid token!", err);
+    res.status(403).json({ msg: "invalid token!", error: err });
   }
 };
 

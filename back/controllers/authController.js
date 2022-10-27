@@ -6,7 +6,7 @@ const generateTokens = require("../helpers/generateTokens");
 
 const registerController = async (req, res) => {
   // check validator
-  const { error } = validateRegister(req.body);
+  const error = validateRegister(req.body);
   if (error) {
     return res.status(400).send("validation error!");
   }
@@ -29,32 +29,30 @@ const registerController = async (req, res) => {
 
 const loginController = async (req, res) => {
   // check validator
-  const { error } = validateLogin(req.body);
-  error && res.status(400).send("validation error!");
-
+  const error = validateLogin(req.body);
+  if (error) {
+    return res.status(400).send("validation error!");
+  }
   // check user exist
-  const userExist = await Users.findOne({ email: req.body.email });
+  const userExist = await Users.findOne({ email: req.body.email }).exec();
   !userExist && res.status(404).send("user not found!");
 
   // check password
-  const validPassword = await bcrypt.compare(
-    req.body.password,
-    userExist.password
-  );
+  const validPassword = await bcrypt.compare(req.body.password, userExist.password);
   !validPassword && res.status(400).send("userName or password is invalid!");
-
-  // // set in header
-  res.header("X-Auth", accessToken)
 
   try {
     // create tokens
     const { accessToken, refreshToken } = await generateTokens(userExist);
-    // // set in cookie
+
+    // set in header
+    res.header("Authorization", refreshToken);
+
+    // set in cookie
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
-      secure: true,
-      maxAge: 24 * 60 * 60 * 1000,
+      secure: process.env.NODE_ENV === "production",
     });
     res.status(200).json({ message: "login successfully!", accessToken, refreshToken });
   } catch (err) {
@@ -70,20 +68,17 @@ const logoutController = async (req, res) => {
   // refresh token in db
   const foundUser = await Users.findOne({ refreshToken: refreshToken });
   if (!foundUser) {
-    res.clearCookie("jwt", {
-      httpOnly: true,
-      sameSite: "None",
-      secure: true,
-    });
+    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: process.env.NODE_ENV === "production" });
     res.status(204).send("logged out successfully!");
   }
 
   try {
     // Delete refreshToken in db
     foundUser.refreshToken = "";
-    res.status(200).send("logged out successfully!");
+    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: process.env.NODE_ENV === "production" });
+    res.status(204).json({ msg: "logged out successfully!" });
   } catch (err) {
-    res.status(500).send("logged out failed!", err);
+    res.status(500).json({ msg: "logged out failed!", error: err });
   }
 };
 
@@ -96,11 +91,11 @@ const refreshTokenController = async (req, res) => {
   !foundUser && res.status(403).send("Forbidden!");
 
   try {
-    const verifiedToken = jwt.verify(refreshToken, process.env.JWT_SECRET_KEY);
+    const verifiedToken = jwt.verify(refreshToken, process.env.SECRET_KEY);
     !verifiedToken && res.status(403).send("Forbidden!");
     const accessToken = jwt.sign(
-      { id: foundUser?._Id },
-      process.env.JWT_SECRET_KEY,
+      { id: foundUser?._id },
+      process.env.SECRET_KEY,
       {
         expiresIn: "10m",
       }

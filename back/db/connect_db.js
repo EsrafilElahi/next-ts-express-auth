@@ -10,7 +10,7 @@ const connectDB = () => {
       console.log("DB Connected ");
     })
     .catch((err) => {
-      console.error(`Error connecting to the database. n${err}`);
+      console.error(`Error connecting to the database : ${err}`);
     });
 
   mongoose.connection.on("connected", () => {
