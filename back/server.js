@@ -5,8 +5,7 @@ const dotenv = require("dotenv");
 const cookieparser = require("cookie-parser");
 const setHeadersOrigin = require("./middlewares/setHeadersOrigin");
 const handleErrors = require("./middlewares/handleErrors");
-// const sequelize = require("./db/connect_db");
-const connectDB = require("./database/db");
+const connectDB = require("./db/connect_db");
 const authRoutes = require("./routes/auth");
 const refreshTokenRoutes = require("./routes/refreshToken");
 const dashboardRoutes = require("./routes/dashboard");
@@ -30,7 +29,6 @@ app.use(cors({ origin: `http://localhost:${port ? port : 5050}/` }));
 
 // routes
 app.get("/", async (req, res) => {
-  // const users = await Users.findAll()
   res.json({ msg: "Home Page" });
 });
 app.use("/auth", authRoutes);
@@ -44,21 +42,7 @@ app.get("*", (req, res) => {
 });
 
 // start app
-app.listen(PORT, () => {
-  console.log(`server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`server is running on port ${port}`);
   connectDB();
 });
-
-// connect db
-// sequelize.sync({ force: true });
-// sequelize
-//   .authenticate()
-//   .then(() => {
-//     console.log("db connected!");
-//     app.listen(port, () => {
-//       console.log(`server running on port ${port}`);
-//     });
-//   })
-//   .catch((err) => {
-//     console.log("unable to connect db :", err);
-//   });

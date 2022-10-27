@@ -4,7 +4,6 @@ const Users = require("../models/users");
 const { validateRegister, validateLogin } = require("../helpers/validation");
 const generateTokens = require("../helpers/generateTokens");
 
-
 const registerController = async (req, res) => {
   // check validator
   const { error } = validateRegister(req.body);
@@ -12,13 +11,9 @@ const registerController = async (req, res) => {
     return res.status(400).send("validation error!");
   }
 
-  console.log("Users :", Users);
-
   // check user exist
   const userExist = await Users.findOne({ email: req.body.email });
   userExist && res.status(409).send("user already exist!");
-
-  res.send("userExist no error");
 
   try {
     // hashed password
@@ -26,9 +21,7 @@ const registerController = async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
     const savedUser = new Users({ ...req.body, password: hashedPassword });
     await savedUser.save();
-    res
-      .status(201)
-      .json({ message: "user created successfully!", user: savedUser });
+    res.status(201).json({ message: "user created successfully!", user: savedUser });
   } catch (err) {
     res.status(500).send("an error accured in creating user");
   }
@@ -41,7 +34,7 @@ const loginController = async (req, res) => {
 
   // check user exist
   const userExist = await Users.findOne({ email: req.body.email });
-  !userExist && res.status(409).send("user doesn't exist!");
+  !userExist && res.status(404).send("user not found!");
 
   // check password
   const validPassword = await bcrypt.compare(
@@ -51,7 +44,7 @@ const loginController = async (req, res) => {
   !validPassword && res.status(400).send("userName or password is invalid!");
 
   // // set in header
-  // res.header("X-Auth", accessToken)
+  res.header("X-Auth", accessToken)
 
   try {
     // create tokens
@@ -63,9 +56,7 @@ const loginController = async (req, res) => {
       secure: true,
       maxAge: 24 * 60 * 60 * 1000,
     });
-    res
-      .status(200)
-      .json({ message: "login successfully!", accessToken, refreshToken });
+    res.status(200).json({ message: "login successfully!", accessToken, refreshToken });
   } catch (err) {
     res.status(500).json({ message: "error login!", error: err });
   }
@@ -73,7 +64,7 @@ const loginController = async (req, res) => {
 
 const logoutController = async (req, res) => {
   const cookies = req.cookies;
-  !cookies?.jwt && res.status(201).send("No Content!");
+  !cookies?.jwt && res.status(201).send("No Cookies Content!");
   const refreshToken = cookies.jwt;
 
   // refresh token in db
@@ -108,7 +99,7 @@ const refreshTokenController = async (req, res) => {
     const verifiedToken = jwt.verify(refreshToken, process.env.JWT_SECRET_KEY);
     !verifiedToken && res.status(403).send("Forbidden!");
     const accessToken = jwt.sign(
-      { id: foundUser?.Id },
+      { id: foundUser?._Id },
       process.env.JWT_SECRET_KEY,
       {
         expiresIn: "10m",
