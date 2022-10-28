@@ -1,6 +1,6 @@
 // const express = require("express");
 const { Router } = require("express")
-const { registerController, loginController, logoutController, refreshTokenController, forgotPasswordController, forgotPasswordController, resetPasswordController } = require("../controllers/authController")
+const { registerController, loginController, logoutController, refreshTokenController, forgotPasswordController, resetPasswordController } = require("../controllers/authController")
 const { authenticate } = require("../middlewares/authenticated")
 const router = Router();
 

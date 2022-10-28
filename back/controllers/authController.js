@@ -132,7 +132,8 @@ const forgotPasswordController = async (req, res) => {
 }
 
 const resetPasswordController = async (req, res) => {
-  const token = res.params.token;
+  const token = req.params.token;
+  !token && res.status(401).send("no token found!")
 
   // verify token and check it
   const verifiedToken = jwt.verify(token, process.env.SECRET_KEY);
@@ -149,7 +150,11 @@ const resetPasswordController = async (req, res) => {
     const user = await Users.findById(verifiedToken.id);
     !user && res.status(404).send("the user not found!");
 
-    user.password = req.body.password;
+    // hashed password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    user.password = hashedPassword;
     await user.save();
 
     res.status(200).send("password has been changed");
