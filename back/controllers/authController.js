@@ -110,9 +110,62 @@ const refreshTokenController = async (req, res) => {
   }
 };
 
+const forgotPasswordController = async (req, res) => {
+  // check exist user
+  const user = await Users.findOne({ email: req.body.email });
+  !user && res.status(404).send("user not found!");
+
+  try {
+    // create token
+    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "10m" });
+
+    const link = `http://localhost:${process.env.PROJECT_PORT}/users/forgot-password/${token}`
+
+    res.status(201).json({
+      resetPasswordLink: link,
+      msg: "rest password link is sent successfully",
+    });
+
+  } catch (err) {
+    res.status(500).json({ msg: "err in forgot password", error: err })
+  }
+}
+
+const resetPasswordController = async (req, res) => {
+  const token = res.params.token;
+
+  // verify token and check it
+  const verifiedToken = jwt.verify(token, process.env.SECRET_KEY);
+  if (!verifiedToken) {
+    res.status(401).send("un authorized!");
+  }
+
+  // check password with passwordConfirm
+  if (req.body.password !== req.body.passwordConfirm) {
+    res.status(422).send("two passwords are not same!");
+  }
+
+  try {
+    const user = await Users.findById(verifiedToken.id);
+    !user && res.status(404).send("the user not found!");
+
+    user.password = req.body.password;
+    await user.save();
+
+    res.status(200).send("password has been changed");
+  } catch (err) {
+    res.status(400).json({ msg: "reset password is failed", error: err });
+  }
+
+
+
+}
+
 module.exports = {
   registerController,
   loginController,
   logoutController,
   refreshTokenController,
+  forgotPasswordController,
+  resetPasswordController
 };
