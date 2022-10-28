@@ -33,7 +33,6 @@ app.get("/", async (req, res) => {
   res.json({ msg: "Home Page" });
 });
 app.use("/auth", authRoutes);
-app.use("/refreshToken", refreshTokenRoutes);
 
 app.use(authenticate) // all below routes must be authenticated
 app.use("/admin-pannel", authAdmin, adminRoutes); // handle authentication & admin middleware

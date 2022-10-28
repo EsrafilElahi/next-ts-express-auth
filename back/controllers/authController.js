@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const Users = require("../models/users");
 const { validateRegister, validateLogin } = require("../helpers/validation");
 const generateTokens = require("../helpers/generateTokens");
+const verifyRefreshToken = require("../helpers/verifyRefreshToken");
 
 const registerController = async (req, res) => {
   // check validator
@@ -86,24 +87,23 @@ const logoutController = async (req, res) => {
 };
 
 const refreshTokenController = async (req, res) => {
-  const cookies = req.cookies;
-  !cookies?.jwt && res.status(401).send("Not Authorized!");
-  const refreshToken = cookies.jwt;
+  const { id, refreshToken } = req.body;
 
-  const foundUser = await Users.findOne({ refreshToken: refreshToken });
-  !foundUser && res.status(403).send("Forbidden!");
+  const isValid = verifyRefreshToken(id, refreshToken)
+  !isValid && res.status(401).send("invalid token!")
+
+  // const cookies = req.cookies;
+  // !cookies?.jwt && res.status(401).send("Not Authorized!");
+  // const refreshToken = cookies.jwt;
+
+  // const foundUser = await Users.findOne({ refreshToken: refreshToken });
+  // !foundUser && res.status(403).send("Forbidden!");
 
   try {
-    const verifiedToken = jwt.verify(refreshToken, process.env.SECRET_KEY);
-    !verifiedToken && res.status(403).send("Forbidden!");
-    const accessToken = jwt.sign(
-      { id: foundUser?._id },
-      process.env.SECRET_KEY,
-      {
-        expiresIn: "10m",
-      }
-    );
+    // const verifiedToken = jwt.verify(refreshToken, process.env.SECRET_KEY);
+    // !verifiedToken && res.status(403).send("Forbidden!");
 
+    const accessToken = jwt.sign({ id: id }, process.env.SECRET_KEY, { expiresIn: "10m" });
     return res.status(201).json({ accessToken: accessToken });
   } catch (error) {
     res.status(406).send("refresh token is invalid");
