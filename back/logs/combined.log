@@ -46,3 +46,6 @@
 2022-10-30 00:07:35 [33mwarn[39m : log warn in dsaasdserve file
 2022-10-30 00:07:35 [32minfo[39m : server is running on port 5000
 2022-10-30 00:07:44 [32minfo[39m : server is running on port 5000
+2022-10-30 00:08:27 [32minfo[39m : server is running on port 5000
+2022-10-30 00:08:30 [32minfo[39m : Mongoose Connected
+2022-10-30 00:08:30 [32minfo[39m : DB Connected 
