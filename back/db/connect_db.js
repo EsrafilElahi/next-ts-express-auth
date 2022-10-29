@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const logger = require("../logger");
 
 const connectDB = () => {
   mongoose
@@ -7,14 +8,14 @@ const connectDB = () => {
       useUnifiedTopology: true,
     })
     .then(() => {
-      console.log("DB Connected ");
+      logger.info("DB Connected ");
     })
     .catch((err) => {
       console.error(`Error connecting to the database : ${err}`);
     });
 
   mongoose.connection.on("connected", () => {
-    console.log("Mongoose Connected");
+    logger.info("Mongoose Connected");
   });
 };
 

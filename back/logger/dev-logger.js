@@ -3,7 +3,7 @@ const { timestamp, combine, printf, prettyPrint, errors } = format;
 
 const buildDevLogger = () => {
   const customFormat = printf(({ level, message, timestamp, stack }) => {
-    return `${timestamp} ${level} : ${message}`;
+    return `${timestamp} ${level} : ${stack || message}`;
   });
 
   return createLogger({

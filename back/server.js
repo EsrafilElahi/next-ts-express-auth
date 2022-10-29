@@ -28,12 +28,6 @@ app.use(setHeadersOrigin);
 app.use(handleErrors);
 app.use(cors({ origin: `http://localhost:${port ? port : 5050}/` }));
 
-// log test
-logger.error("log ascxxxxxxxxxxxxxxerrorasdsa in serve file")
-logger.warn("log warn in dsaasdserve file")
-logger.silly("log silly iasdn serve file")
-
-
 // routes
 app.get("/", async (req, res) => {
   res.json({ msg: "Home Page" });
@@ -52,7 +46,6 @@ app.get("*", (req, res) => {
 
 // start app
 app.listen(port, () => {
-  console.log(`server is running on port ${port}`);
-  logger.info("log info in serve file")
+  logger.info(`server is running on port ${port}`);
   connectDB();
 });
