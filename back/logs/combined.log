@@ -1,0 +1,33 @@
+{"level":"error","message":"log aserrorasdsa in serve file","service":"user-service","timestamp":"2022-10-29T20:15:15.437Z"}
+{"level":"warn","message":"log warn in dsaasdserve file","service":"user-service","timestamp":"2022-10-29T20:15:15.444Z"}
+{"level":"info","message":"log info in serve file","service":"user-service","timestamp":"2022-10-29T20:15:15.453Z"}
+{"level":"error","message":"log aserrorasdsa in serve file","service":"user-service","timestamp":"2022-10-29T20:16:00.347Z"}
+{"level":"warn","message":"log warn in dsaasdserve file","service":"user-service","timestamp":"2022-10-29T20:16:00.353Z"}
+{"level":"info","message":"log info in serve file","service":"user-service","timestamp":"2022-10-29T20:16:00.362Z"}
+2022-10-29 23:46:03 [31merror[39m : log aserrorasdsa in serve file
+2022-10-29 23:46:03 [33mwarn[39m : log warn in dsaasdserve file
+2022-10-29 23:46:03 [32minfo[39m : log info in serve file
+2022-10-29 23:47:07 [31merror[39m : log aserrorasdsa in serve file
+2022-10-29 23:47:07 [33mwarn[39m : log warn in dsaasdserve file
+2022-10-29 23:47:07 [32minfo[39m : log info in serve file
+2022-10-29 23:47:20 [31merror[39m : log ascxxxxxxxxxxxxxxerrorasdsa in serve file
+2022-10-29 23:47:20 [33mwarn[39m : log warn in dsaasdserve file
+2022-10-29 23:47:20 [32minfo[39m : log info in serve file
+2022-10-29 23:48:10 [31merror[39m : log ascxxxxxxxxxxxxxxerrorasdsa in serve file
+2022-10-29 23:48:10 [33mwarn[39m : log warn in dsaasdserve file
+2022-10-29 23:48:10 [32minfo[39m : log info in serve file
+{"level":"\u001b[31merror\u001b[39m","message":"log ascxxxxxxxxxxxxxxerrorasdsa in serve file","timestamp":"2022-10-29 23:48:38"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"log warn in dsaasdserve file","timestamp":"2022-10-29 23:48:38"}
+{"level":"\u001b[32minfo\u001b[39m","message":"log info in serve file","timestamp":"2022-10-29 23:48:38"}
+{"level":"\u001b[31merror\u001b[39m","message":"log ascxxxxxxxxxxxxxxerrorasdsa in serve file","timestamp":"2022-10-29 23:49:17"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"log warn in dsaasdserve file","timestamp":"2022-10-29 23:49:17"}
+{"level":"\u001b[32minfo\u001b[39m","message":"log info in serve file","timestamp":"2022-10-29 23:49:17"}
+2022-10-29 23:49:55 [31merror[39m : log ascxxxxxxxxxxxxxxerrorasdsa in serve file
+2022-10-29 23:49:55 [33mwarn[39m : log warn in dsaasdserve file
+2022-10-29 23:49:55 [32minfo[39m : log info in serve file
+2022-10-29 23:50:30 [31merror[39m : log ascxxxxxxxxxxxxxxerrorasdsa in serve file
+2022-10-29 23:50:30 [33mwarn[39m : log warn in dsaasdserve file
+2022-10-29 23:50:30 [32minfo[39m : log info in serve file
+2022-10-29 23:50:35 [31merror[39m : log ascxxxxxxxxxxxxxxerrorasdsa in serve file
+2022-10-29 23:50:35 [33mwarn[39m : log warn in dsaasdserve file
+2022-10-29 23:50:35 [32minfo[39m : log info in serve file

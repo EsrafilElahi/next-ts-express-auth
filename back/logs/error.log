@@ -1,0 +1,11 @@
+{"level":"error","message":"log aserrorasdsa in serve file","service":"user-service","timestamp":"2022-10-29T20:15:15.437Z"}
+{"level":"error","message":"log aserrorasdsa in serve file","service":"user-service","timestamp":"2022-10-29T20:16:00.347Z"}
+2022-10-29 23:46:03 [31merror[39m : log aserrorasdsa in serve file
+2022-10-29 23:47:07 [31merror[39m : log aserrorasdsa in serve file
+2022-10-29 23:47:20 [31merror[39m : log ascxxxxxxxxxxxxxxerrorasdsa in serve file
+2022-10-29 23:48:10 [31merror[39m : log ascxxxxxxxxxxxxxxerrorasdsa in serve file
+{"level":"\u001b[31merror\u001b[39m","message":"log ascxxxxxxxxxxxxxxerrorasdsa in serve file","timestamp":"2022-10-29 23:48:38"}
+{"level":"\u001b[31merror\u001b[39m","message":"log ascxxxxxxxxxxxxxxerrorasdsa in serve file","timestamp":"2022-10-29 23:49:17"}
+2022-10-29 23:49:55 [31merror[39m : log ascxxxxxxxxxxxxxxerrorasdsa in serve file
+2022-10-29 23:50:30 [31merror[39m : log ascxxxxxxxxxxxxxxerrorasdsa in serve file
+2022-10-29 23:50:35 [31merror[39m : log ascxxxxxxxxxxxxxxerrorasdsa in serve file
