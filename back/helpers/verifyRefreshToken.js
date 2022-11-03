@@ -20,4 +20,17 @@ function verifyRefreshToken(receivedRefreshToken) {
 
 
 }
+
+// other way to verify token
+// // 1 - find token
+// const foundedRefreshToken = await UserRefreshTokens.findOne({ token: receivedRereshToken });
+// !foundedRefreshToken && res.status(404).send("token not found in db!");
+
+// // 2 - verify token
+// const verifiedRefreshToken = jwt.verify(receivedRereshToken, process.env.SECRET_KEY)
+
+// // 3 - create new access token
+// const newAccesToken = jwt.sign({ id: verifiedRefreshToken?._id }, process.env.SECRET_KEY, { expiresIn: "10m" })
+
+
 module.exports = { verifyRefreshToken };

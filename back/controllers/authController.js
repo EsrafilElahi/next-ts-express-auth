@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const Users = require("../models/users");
 const { validateRegister, validateLogin } = require("../helpers/validation");
 const generateTokens = require("../helpers/generateTokens");
-const verifyRefreshToken = require("../helpers/verifyRefreshToken");
+
 
 const registerController = async (req, res) => {
   // check validator

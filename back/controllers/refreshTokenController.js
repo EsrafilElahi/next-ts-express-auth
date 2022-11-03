@@ -6,7 +6,6 @@ const verifyRefreshToken = require("../helpers/verifyRefreshToken");
 const refreshTokenController = async (req, res) => {
   // check refreshToken verified
   const { verifiedRefreshToken } = verifyRefreshToken(req.body.refreshToken)
-
   try {
     // create accessToken
     const newAccessToken = jwt.sign({ id: verifiedRefreshToken?._id }, process.env.SECRET_KEY, { expiresIn: "10m" })
@@ -15,7 +14,6 @@ const refreshTokenController = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'err in generate new access token', error: err })
   }
-
 }
 
 const logoutController = async (req, res) => {

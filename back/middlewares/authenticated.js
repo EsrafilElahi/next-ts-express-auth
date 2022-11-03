@@ -17,8 +17,8 @@ const authenticate = async (req, res, next) => {
 };
 
 const authAdmin = async (req, res, next) => {
-  const user = await Users.findById(req.id);
-  !user && user.status(401).send("user not found & not authorized!")
+  // set th req.user above in the authenticate middlware
+  const user = req.user;
   if (user.isAdmin) next();
   res.status(401).send("not admin");
 };
