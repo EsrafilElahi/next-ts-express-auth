@@ -3,10 +3,11 @@ const path = require("path");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const cookieparser = require("cookie-parser");
-const setHeadersOrigin = require("./middlewares/setHeadersOrigin");
-const handleErrors = require("./middlewares/handleErrors");
+const setHeadersOrigin = require("./helpers/setHeadersOrigin");
+const handleErrors = require("./helpers/handleErrors");
 const connectDB = require("./db/connect_db");
 const authRoutes = require("./routes/auth");
+const refreshTokenRoutes = require("./routes/refreshToken");
 const dashboardRoutes = require("./routes/dashboard");
 const adminRoutes = require("./routes/adminPannel");
 const usersRoutes = require("./routes/users");
@@ -19,7 +20,7 @@ const app = express();
 const port = process.env.PROJECT_PORT || 5050;
 
 // middlewares
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieparser());
 app.use(express.json());
 let publicDir = path.join(__dirname, "public");
@@ -32,7 +33,8 @@ app.use(cors({ origin: `http://localhost:${port ? port : 5050}/` }));
 app.get("/", async (req, res) => {
   res.json({ msg: "Home Page" });
 });
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/refresh-token", refreshTokenRoutes);
 
 app.use(authenticate) // all below routes must be authenticated
 app.use("/admin-pannel", authAdmin, adminRoutes); // handle authentication & admin middleware

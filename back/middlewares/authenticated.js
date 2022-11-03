@@ -9,8 +9,8 @@ const authenticate = async (req, res, next) => {
   try {
     const verifiedToken = jwt.verify(token, process.env.SECRET_KEY);
     !verifiedToken && res.status(403).send("invalid token inside try");
-    req.id = verifiedToken.id;
-    return next();
+    req.user = verifiedToken;
+    next();
   } catch (err) {
     res.status(403).json({ msg: "invalid token!", error: err });
   }

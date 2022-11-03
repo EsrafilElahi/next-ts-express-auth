@@ -46,9 +46,6 @@ const loginController = async (req, res) => {
     // create tokens
     const { accessToken, refreshToken } = await generateTokens(userExist);
 
-    // set refreshToken to Users model
-    userExist.refreshToken = refreshToken;
-
     // set in header
     res.header("Authorization", refreshToken);
 
@@ -61,48 +58,6 @@ const loginController = async (req, res) => {
     res.status(200).json({ message: "login successfully!", accessToken, refreshToken });
   } catch (err) {
     res.status(500).json({ message: "error login!", error: err });
-  }
-};
-
-const logoutController = async (req, res) => {
-  const cookies = req.cookies;
-  !cookies?.jwt && res.status(201).send("No Cookies Content!");
-  const refreshToken = cookies.jwt;
-
-  // refresh token in db
-  const foundUser = await Users.findOne({ refreshToken: refreshToken });
-  if (!foundUser) {
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: process.env.NODE_ENV === "production" });
-    res.status(204).send("logged out successfully!");
-  }
-
-  try {
-    // Delete refreshToken in db
-    foundUser.refreshToken = "";
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: process.env.NODE_ENV === "production" });
-    res.status(204).json({ msg: "logged out successfully!" });
-  } catch (err) {
-    res.status(500).json({ msg: "logged out failed!", error: err });
-  }
-};
-
-const refreshTokenController = async (req, res) => {
-  const { refreshToken } = req.body;
-
-  const isValid = verifyRefreshToken(refreshToken)
-  !isValid && res.status(401).send("invalid token!")
-
-  // const foundUser = await Users.findOne({ refreshToken: refreshToken });
-  // !foundUser && res.status(403).send("Forbidden!");
-
-  try {
-    const verifiedToken = jwt.verify(refreshToken, process.env.SECRET_KEY);
-    !verifiedToken && res.status(403).send("Forbidden!");
-
-    const accessToken = jwt.sign({ id: refreshToken.id }, process.env.SECRET_KEY, { expiresIn: "10m" });
-    return res.status(201).json({ accessToken: accessToken });
-  } catch (error) {
-    res.status(406).send("refresh token is invalid");
   }
 };
 
@@ -165,8 +120,6 @@ const resetPasswordController = async (req, res) => {
 module.exports = {
   registerController,
   loginController,
-  logoutController,
-  refreshTokenController,
   forgotPasswordController,
   resetPasswordController
 };
