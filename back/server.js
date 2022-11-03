@@ -13,7 +13,7 @@ const adminRoutes = require("./routes/adminPannel");
 const usersRoutes = require("./routes/users");
 const logger = require("./logger/index");
 const { authenticate, authAdmin } = require("./middlewares/authenticated");
-const Users = require("./models/users");
+
 
 dotenv.config();
 const app = express();

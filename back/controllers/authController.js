@@ -47,7 +47,7 @@ const loginController = async (req, res) => {
     const { accessToken, refreshToken } = await generateTokens(userExist);
 
     // set in header
-    res.header("Authorization", refreshToken);
+    res.setHeader("Authorization", `Bearer ${refreshToken}`);
 
     // set in cookie
     res.cookie("jwt", refreshToken, {

@@ -6,6 +6,7 @@ const authenticate = async (req, res, next) => {
   !req.cookies.jwt && res.status(401).send("unAuthorized!");
   const token = req.cookies.jwt;
 
+
   try {
     const verifiedToken = jwt.verify(token, process.env.SECRET_KEY);
     !verifiedToken && res.status(403).send("invalid token inside try");

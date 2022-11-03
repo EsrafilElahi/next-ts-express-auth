@@ -1,13 +1,20 @@
 const jwt = require("jsonwebtoken");
 const UserRefreshTokens = require("../models/refreshToken");
-const verifyRefreshToken = require("../helpers/verifyRefreshToken");
 
 
 const refreshTokenController = async (req, res) => {
-  // check refreshToken verified
-  const { verifiedRefreshToken } = verifyRefreshToken(req.body.refreshToken)
+
+  const receivedRereshToken = req.body.refreshToken;
+
+  // 1 - find token
+  const foundedRefreshToken = await UserRefreshTokens.findOne({ token: receivedRereshToken });
+  !foundedRefreshToken && res.status(404).send("token not found in db!");
+
+  // 2 - verify token
+  const verifiedRefreshToken = jwt.verify(receivedRereshToken, process.env.SECRET_KEY)
+
   try {
-    // create accessToken
+    // 3 - create new access token
     const newAccessToken = jwt.sign({ id: verifiedRefreshToken?._id }, process.env.SECRET_KEY, { expiresIn: "10m" })
 
     res.status(201).json({ message: "created new access token", accessToken: newAccessToken })
