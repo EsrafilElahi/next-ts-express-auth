@@ -87,14 +87,10 @@ const logoutController = async (req, res) => {
 };
 
 const refreshTokenController = async (req, res) => {
-  // const { id, refreshToken } = req.body;
+  const { refreshToken } = req.body;
 
-  // const isValid = verifyRefreshToken(id, refreshToken)
-  // !isValid && res.status(401).send("invalid token!")
-
-  const cookies = req.cookies;
-  !cookies?.jwt && res.status(401).send("Not Authorized!");
-  const refreshToken = cookies.jwt;
+  const isValid = verifyRefreshToken(refreshToken)
+  !isValid && res.status(401).send("invalid token!")
 
   // const foundUser = await Users.findOne({ refreshToken: refreshToken });
   // !foundUser && res.status(403).send("Forbidden!");
