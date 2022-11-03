@@ -21,11 +21,11 @@ const port = process.env.PROJECT_PORT || 5050;
 
 // middlewares
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieparser());
+app.use(setHeadersOrigin);
 app.use(express.json());
+app.use(cookieparser());
 let publicDir = path.join(__dirname, "public");
 app.use(express.static(publicDir));
-app.use(setHeadersOrigin);
 app.use(handleErrors);
 app.use(cors({ origin: `http://localhost:${port ? port : 5050}/` }));
 
