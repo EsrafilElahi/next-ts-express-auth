@@ -27,7 +27,7 @@ const deleteUserController = async (req, res) => {
 
   try {
     const user = await Users.findByIdAndDelete(userId).exec()
-    res.status(200).json({ msg: "user has been deleted!", user: user })
+    res.status(200).json({ msg: "user has been deleted!", deletedUser: user })
   } catch (error) {
     res.status(500).send("failed delete user!")
   }
