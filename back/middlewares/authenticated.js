@@ -1,11 +1,12 @@
-const Users = require("../models/users");
 const jwt = require("jsonwebtoken");
 
 const authenticate = async (req, res, next) => {
+  
+  const authHeader = req.headers.authorization;
+  !authHeader && res.status(401).send("token not found in header --> unauthorized!");
+  const token = authHeader.split(" ")[1];
 
-  !req.cookies.jwt && res.status(401).send("unAuthorized!");
-  const token = req.cookies.jwt;
-
+  console.log("authHeader :", authHeader)
 
   try {
     const verifiedToken = jwt.verify(token, process.env.SECRET_KEY);
