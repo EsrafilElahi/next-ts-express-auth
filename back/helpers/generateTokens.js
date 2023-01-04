@@ -11,7 +11,7 @@ const generateTokens = async (user) => {
     const userToken = await UserRefreshTokens.findOne({ userID: user?._id });
     userToken && await userToken.remove()
 
-    //  now create new refreshToken ans save it
+    //  now create new refreshToken and save it
     const newRefreshToken = new UserRefreshTokens({ userID: user?._id, token: refreshToken })
     await newRefreshToken.save();
 
