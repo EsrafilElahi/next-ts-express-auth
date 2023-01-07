@@ -37,8 +37,8 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    refreshToken: {
-      type: String,
+    refreshTokens: {
+      type: Array,
     },
   },
   { timestamps: true }, // to build createdAt & updatedAt fields automatically
