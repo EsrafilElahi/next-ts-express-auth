@@ -9,7 +9,10 @@ const generateTokens = async (user) => {
     const refreshToken = jwt.sign({ id: user?._id }, process.env.SECRET_KEY, { expiresIn: "30d" });
 
     // set refreshToken in User's refreshTokens array
-    const savedUserTokens = await Users.updateOne({ _id: user?._id }, { $push: { refreshTokens: refreshToken } })
+    const savedUserTokens = await Users.updateOne(
+      { _id: user?._id },
+      { $push: { refreshTokens: refreshToken } }
+    )
     await savedUserTokens.save()
 
     // check refresh token exist into UserRefreshTokens, if exist remove it
