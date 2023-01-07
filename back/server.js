@@ -20,7 +20,7 @@ const app = express();
 const port = process.env.PROJECT_PORT || 5050;
 
 // middlewares
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(setHeadersOrigin);
 app.use(express.json());
 app.use(cookieparser());

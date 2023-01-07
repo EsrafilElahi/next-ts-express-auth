@@ -25,6 +25,9 @@ const refreshTokenController = async (req, res) => {
 
 const logoutController = async (req, res) => {
   try {
+    // delete cookie
+    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: process.env.NODE_ENV === "production" });
+
     // const cookies = req.cookies;
     // !cookies?.jwt && res.status(201).send("No Cookies Content!");
     // const cookieRefreshToken = cookies.jwt;
@@ -32,12 +35,10 @@ const logoutController = async (req, res) => {
     // check refresh token in db and delete the token
     const refreshToken = await UserRefreshTokens.findOne({ token: req.body.refreshToken });
     !refreshToken && res.status(200).send("token not found - logged out successfully!");
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: process.env.NODE_ENV === "production" });
 
     // remove the token
     await refreshToken.remove()
     res.status(200).send("token found and deleted - logged out successfully!");
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: process.env.NODE_ENV === "production" });
 
   } catch (err) {
     res.status(500).json({ message: "logged out failed!", error: err });

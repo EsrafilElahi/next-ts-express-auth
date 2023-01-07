@@ -40,14 +40,14 @@ const loginController = async (req, res) => {
 
   // check password
   const validPassword = await bcrypt.compare(req.body.password, userExist.password);
-  !validPassword && res.status(400).send("userName or password is invalid!");
+  !validPassword && res.status(400).send("userName or password is not valid!");
 
   try {
     // create tokens
     const { accessToken, refreshToken } = await generateTokens(userExist);
 
     // set in header
-    res.setHeader("Authorization", `Bearer ${refreshToken}`);
+    // res.setHeader("Authorization", `Bearer ${refreshToken}`);
 
     // set in cookie
     res.cookie("jwt", refreshToken, {
