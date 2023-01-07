@@ -12,8 +12,8 @@ const generateTokens = async (user) => {
     const savedUserTokens = await Users.updateOne(
       { _id: user?._id },
       { $push: { refreshTokens: refreshToken } }
-    )
-    await savedUserTokens.save()
+    );
+    await savedUserTokens.save();
 
     // check refresh token exist into UserRefreshTokens, if exist remove it
     const userToken = await UserRefreshTokens.findOne({ userID: user?._id });
