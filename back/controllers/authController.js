@@ -46,19 +46,16 @@ const loginController = async (req, res) => {
     // create tokens
     const { accessToken, refreshToken } = await generateTokens(userExist);
 
-    // set in header
-    // res.setHeader("Authorization", `Bearer ${refreshToken}`);
+    // set in cookie - not good --> in other apps doesn't save
+    // res.cookie("jwt", refreshToken, {
+    //   httpOnly: true,
+    //   sameSite: "None",
+    //   secure: process.env.NODE_ENV === "production",
+    // });
 
-    // set in cookie
-    res.cookie("jwt", refreshToken, {
-      httpOnly: true,
-      sameSite: "None",
-      secure: process.env.NODE_ENV === "production",
-    });
-    
     res.status(200).json({ message: "login successfully!", accessToken, refreshToken });
   } catch (err) {
-    res.status(500).json({ message: "error login!", error: err });
+    res.status(401).json({ message: "error login unauthorized!", error: err });
   }
 };
 
@@ -90,7 +87,7 @@ const resetPasswordController = async (req, res) => {
   // verify token and check it
   const verifiedToken = jwt.verify(token, process.env.SECRET_KEY);
   if (!verifiedToken) {
-    res.status(401).send("un authorized!");
+    res.status(403).send("fobidden, doesn't permission");
   }
 
   // check password with passwordConfirm
