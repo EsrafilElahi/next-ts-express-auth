@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Users = require("../models/users");
+const UserRefreshTokens = require("../models/refreshToken")
 const { validateRegister, validateLogin } = require("../helpers/validation");
 const generateTokens = require("../helpers/generateTokens");
 
@@ -58,6 +59,22 @@ const loginController = async (req, res) => {
     res.status(401).json({ message: "error login unauthorized!", error: err });
   }
 };
+
+const logoutController = async (req, res) => {
+  try {
+
+    // check refresh token in db and delete the token
+    const refreshToken = await UserRefreshTokens.findOne({ token: req.body.refreshToken });
+    !refreshToken && res.status(200).send("token not found - logged out successfully!");
+
+    // remove the token
+    await refreshToken.remove()
+    res.status(200).send("token found and deleted - logged out successfully!");
+
+  } catch (err) {
+    res.status(500).json({ message: "logged out failed!", error: err });
+  }
+}
 
 const forgotPasswordController = async (req, res) => {
   // check exist user
@@ -118,6 +135,7 @@ const resetPasswordController = async (req, res) => {
 module.exports = {
   registerController,
   loginController,
+  logoutController,
   forgotPasswordController,
   resetPasswordController
 };

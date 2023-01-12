@@ -22,7 +22,7 @@ const authAdmin = async (req, res, next) => {
   // set the req.user above in the authenticate middlware
   const user = req.user;
   if (user.isAdmin) next();
-  res.status(401).send("not admin");
+  res.status(403).send("not admin");
 };
 
 module.exports = {
