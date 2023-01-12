@@ -2,3 +2,5 @@ node_modules
 logs/combined.log
 *.log
 .env.example
+
+combined.log
