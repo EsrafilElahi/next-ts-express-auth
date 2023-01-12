@@ -33,8 +33,8 @@ app.use(cors({ origin: `http://localhost:${port ? port : 5050}/` }));
 app.get("/", async (req, res) => {
   res.json({ msg: "Home Page" });
 });
-app.use("/api/auth", authRoutes);
-app.use("/api/refresh-token", refreshTokenRoutes);
+app.use("/auth", authRoutes);
+app.use("/refresh-token", refreshTokenRoutes);
 
 app.use(authenticate) // all below routes must be authenticated
 app.use("/admin-pannel", authAdmin, adminRoutes); // handle authentication & admin middleware

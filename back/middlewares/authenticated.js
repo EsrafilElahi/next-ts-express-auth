@@ -4,9 +4,9 @@ const authenticate = async (req, res, next) => {
   
   const authHeader = req.headers.authorization;
   !authHeader && res.status(401).send("token not found in header --> unauthorized!");
-  const token = authHeader.split(" ")[1];
+  const token = authHeader?.split(" ")[1];
 
-  console.log("authHeader :", authHeader)
+  console.log("authHeader :", req.headers)
 
   try {
     const verifiedToken = jwt.verify(token, process.env.SECRET_KEY);
@@ -19,7 +19,7 @@ const authenticate = async (req, res, next) => {
 };
 
 const authAdmin = async (req, res, next) => {
-  // set th req.user above in the authenticate middlware
+  // set the req.user above in the authenticate middlware
   const user = req.user;
   if (user.isAdmin) next();
   res.status(401).send("not admin");
