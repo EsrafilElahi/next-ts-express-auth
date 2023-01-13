@@ -5,7 +5,6 @@ import type { NextPage } from "next";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { wrapper } from "../redux/store";
-// import { persistor } from "../redux/store";
 import "../styles/globals.css";
 
 export type NextPageLayout = NextPage & {

@@ -13,10 +13,6 @@ const Dashboard: NextPageLayout = (props: Props) => {
 
   console.log('auth in dash :', auth);
 
-  const handleChange = async () => {
-    console.log('submit change');
-    dispatch(changeIsLoggedIn());
-  }
 
   return (
     <div className='flex flex-col justify-center items-center w-[30%] h-[80%] rounded-md bg-blue-500 p-3 gap-4'>
@@ -28,8 +24,6 @@ const Dashboard: NextPageLayout = (props: Props) => {
       <span>birth date: {auth?.me?.birthDate}</span>
       <span>gender: {auth?.me?.gender}</span>
       <span>isAdmin: {auth?.me?.isAdmin ? 'yes' : 'no'}</span>
-      <button className='bg-[#000] text-[#d0c] p-4 rounded-lg' onClick={handleChange}>click to change</button>
-      <span>isLoggedIn : {auth?.isLoggedIn ? 'true' : 'false'}</span>
     </div>
   )
 }
