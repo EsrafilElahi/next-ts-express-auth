@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Layout from '/components/Layout'
+import Layout from 'components/Layout'
 import type { NextPageLayout } from 'pages/_app'
 
 type Props = {}

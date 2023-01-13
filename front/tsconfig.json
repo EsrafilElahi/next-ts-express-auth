@@ -20,15 +20,10 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "/components/*": [
-        "components/*"
-      ],
-      "/types/*": [
-        "types/*"
-      ],
-      "/public/*": [
-        "public/*"
-      ]
+      "components/*": ["components/*"],
+      "types/*": ["types/*"],
+      "utils/*": ["utils/*"],
+      // "icons/*": ["public/icon/*"]
     }
   },
   "include": [

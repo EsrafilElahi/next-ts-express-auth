@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Dispatch, ChangeEvent, } from 'react'
-import Layout from '/components/Layout'
+import Layout from 'components/Layout'
 import { NextPageLayout } from '../_app'
 import Link from 'next/link'
 

@@ -27,7 +27,7 @@ app.use(cookieparser());
 let publicDir = path.join(__dirname, "public");
 app.use(express.static(publicDir));
 app.use(handleErrors);
-app.use(cors({ origin: `http://localhost:${port ? port : 5050}/` }));
+app.use(cors());
 
 // routes
 app.get("/", async (req, res) => {

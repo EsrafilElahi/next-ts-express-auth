@@ -7,12 +7,12 @@ const registerSchema = Joi.object({
   password: Joi.string().min(4).required(),
   passwordConfirm: Joi.string().required().valid(Joi.ref("password")),
   job: Joi.string(),
-  birthDate: Joi.date(),
-  age: Joi.number(),
+  birthDate: Joi.string(),
+  age: Joi.string(),
   gender: Joi.string(),
   isAdmin: Joi.boolean(),
-  refreshToken: Joi.string(),
 });
+
 
 const loginSchema = Joi.object({
   email: Joi.string().email().required(),
@@ -21,7 +21,7 @@ const loginSchema = Joi.object({
 
 const validateRegister = (data) => {
   const { error, value } = registerSchema.validate(data);
-  return error;
+  return { error, value };
 };
 
 const validateLogin = (data) => {

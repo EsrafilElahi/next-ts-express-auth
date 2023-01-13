@@ -7,52 +7,49 @@ const generateTokens = require("../helpers/generateTokens");
 
 
 const registerController = async (req, res) => {
+  const { data } = req.body;
+
   // check validator
-  const error = validateRegister(req.body);
+  const { error } = validateRegister(data);
   if (error) {
-    return res.status(400).send("validation error!");
+    return res.status(400).json({ message: "validation error!", error: error });
   }
 
   // check user exist
-  const userExist = await Users.findOne({ email: req.body.email });
+  const userExist = await Users.findOne({ email: data.email }).exec();
   userExist && res.status(409).send("user already exist!");
 
   try {
     // hashed password
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    const savedUser = new Users({ ...req.body, password: hashedPassword });
+    const hashedPassword = await bcrypt.hash(data.password, salt);
+    const savedUser = new Users({ ...data, password: hashedPassword });
     await savedUser.save();
     res.status(201).json({ message: "user created successfully!", user: savedUser });
   } catch (err) {
-    res.status(500).send("an error accured in creating user");
+    res.status(500).json({ message: "an error accured in creating user", error: err });
   }
 };
 
 const loginController = async (req, res) => {
+  const { data } = req.body;
+
   // check validator
-  const error = validateLogin(req.body);
+  const error = validateLogin(data);
   if (error) {
     return res.status(400).send("validation error!");
   }
   // check user exist
-  const userExist = await Users.findOne({ email: req.body.email }).exec();
+  const userExist = await Users.findOne({ email: data.email }).exec();
   !userExist && res.status(404).send("user not found!");
 
   // check password
-  const validPassword = await bcrypt.compare(req.body.password, userExist.password);
+  const validPassword = await bcrypt.compare(data.password, userExist.password);
   !validPassword && res.status(400).send("userName or password is not valid!");
 
   try {
     // create tokens
     const { accessToken, refreshToken } = await generateTokens(userExist);
-
-    // set in cookie - not good --> in other apps doesn't save
-    // res.cookie("jwt", refreshToken, {
-    //   httpOnly: true,
-    //   sameSite: "None",
-    //   secure: process.env.NODE_ENV === "production",
-    // });
 
     res.status(200).json({ message: "login successfully!", accessToken, refreshToken });
   } catch (err) {
