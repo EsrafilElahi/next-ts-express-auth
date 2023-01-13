@@ -12,7 +12,7 @@ export type TUserRegister = {
   password: string | undefined;
   passwordConfirm?: string | undefined;
   job?: string | undefined;
-  birthDate?: string | undefined;
+  birthDate?: Date | string | undefined;
   age?: number | string | undefined;
   gender?: string | "male" | "female";
   isAdmin?: boolean | undefined;
@@ -29,7 +29,7 @@ export type TAuthSliceState = {
   isLoggedIn: boolean,
   me: TUserRegister | null;
   loading: ELoadingState;
-  error: null | unknown;
+  error: null | unknown | any;
 };
 
 

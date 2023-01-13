@@ -2,7 +2,7 @@ import React, { useState, useEffect, ChangeEvent } from 'react'
 import Layout from 'components/Layout'
 import { useRouter } from 'next/router'
 import type { NextPageLayout } from 'pages/_app'
-import type { TUserRegister } from 'types/reduxSlices/suthSlice'
+import type { TUserRegister, TAuthSliceState } from 'types/reduxSlices/suthSlice'
 import { useAppDispatch, useAppSelector } from "utils/reduxTools";
 import { registerUser } from 'redux/slices/authSlice'
 
@@ -20,11 +20,12 @@ const Register: NextPageLayout = (props: Props) => {
     job: "",
     birthDate: "",
     age: "",
-    gender: "",
+    gender: "male",
     isAdmin: false,
   })
 
-  console.log(registerData)
+  const auth: TAuthSliceState = useAppSelector(state => state.authReducer);
+
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -39,11 +40,11 @@ const Register: NextPageLayout = (props: Props) => {
 
     try {
       const res = await dispatch(registerUser(registerData)).unwrap();
-      if(res){
+      if (res) {
         router.push("/auth/login")
       }
     } catch (error) {
-      console.log('err in register user :', error)
+      // console.log('err in register user :', error)
     }
   }
 

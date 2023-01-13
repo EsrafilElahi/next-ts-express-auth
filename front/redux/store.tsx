@@ -8,7 +8,7 @@ import { authSlice } from "./slices/authSlice";
 
 const makeStore = () => {
   const isServer = typeof window === "undefined";
-  let store;
+  let store: any;
 
   const combinedReducers = combineReducers({
     authReducer: authSlice.reducer,
@@ -37,7 +37,6 @@ const makeStore = () => {
     const persistConfig = {
       key: "root",
       storage,
-      whitelist: ["authReducer"],
     };
 
     const rootReducer = (state: ReturnType<typeof combinedReducers>, action: AnyAction) => {
@@ -65,8 +64,8 @@ const makeStore = () => {
         }),
     });
 
-    // store = persistStore(store)1 // Nasty hack
-    // store.__persistor = persistStore(store);
+    // store = persistStore(store) // Nasty hack
+    store.__persistor = persistStore(store);
   }
 
   return store;
@@ -74,7 +73,6 @@ const makeStore = () => {
 
 // simple way
 export const store = makeStore();
-export const persistor = persistStore(store);
 // export type RootState = ReturnType<typeof store.getState>
 // export type AppDispatch = typeof store.dispatch
 
@@ -85,7 +83,4 @@ export type AppDispatch = Store["dispatch"];
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppState, unknown, Action<string>>;
 
-export const wrapper = createWrapper(makeStore, {
-  debug: true,
-  // storeKey: "key",
-});
+export const wrapper = createWrapper(makeStore, { debug: true });

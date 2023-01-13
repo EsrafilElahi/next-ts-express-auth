@@ -25,7 +25,8 @@ const registerController = async (req, res) => {
     const hashedPassword = await bcrypt.hash(data.password, salt);
     const savedUser = new Users({ ...data, password: hashedPassword });
     await savedUser.save();
-    res.status(201).json({ message: "user created successfully!", user: savedUser });
+    const { password, passwordConfirm, ...restUserData } = data;
+    res.status(201).json({ message: "user created successfully!", user: restUserData });
   } catch (err) {
     res.status(500).json({ message: "an error accured in creating user", error: err });
   }
@@ -51,7 +52,20 @@ const loginController = async (req, res) => {
     // create tokens
     const { accessToken, refreshToken } = await generateTokens(userExist);
 
-    res.status(200).json({ message: "login successfully!", accessToken, refreshToken });
+    const sendUser = {
+      firstName: userExist.firstName,
+      lastName: userExist.lastName,
+      email: userExist.email,
+      job: userExist.job,
+      birthDate: userExist.birthDate,
+      age: userExist.age,
+      gender: userExist.gender,
+      isAdmin: userExist.isAdmin,
+    };
+
+    console.log('sendUser :', sendUser);
+
+    res.status(200).json({ message: "login successfully!", user: sendUser, accessToken, refreshToken });
   } catch (err) {
     res.status(401).json({ message: "error login unauthorized!", error: err });
   }

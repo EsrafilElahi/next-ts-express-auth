@@ -19,7 +19,7 @@ axiosInstance.interceptors.request.use(
     return request;
   },
   (error) => {
-    console.log("error in axiosInstance.interceptors.request.use :", error);
+    // console.log("error in axiosInstance.interceptors.request.use :", error);
     return Promise.reject(error);
   }
 );
@@ -46,7 +46,7 @@ axiosInstance.interceptors.response.use(
 
       return axiosInstance(originalRequest);
     }
-    console.log("error in axiosInstance.interceptors.response.use :", error);
+    // console.log("error in axiosInstance.interceptors.response.use :", error);
     return Promise.reject(error);
   }
 );

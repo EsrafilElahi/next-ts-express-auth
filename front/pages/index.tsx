@@ -15,7 +15,7 @@ const Home: NextPageLayout = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  console.log('auth reducer :', auth);
+  // console.log('auth reducer :', auth);
 
   useLayoutEffect(() => {
     if (auth?.isLoggedIn) {
@@ -29,7 +29,7 @@ const Home: NextPageLayout = () => {
   return (
     <>
       {/* {auth?.isLoggedIn ? (<Dashboard />) : (<Login />)} */}
-      index page
+      <span>index page</span>
     </>
   )
 }
