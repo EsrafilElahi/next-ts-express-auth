@@ -21,14 +21,14 @@ export const getUsers = createAsyncThunk(
 );
 
 interface IGetUser {
-  userId: number,
+  userId: number | string,
 }
 
 export const getUser = createAsyncThunk(
   "users/getuser",
-  async (_: IGetUser, thunkAPI) => {
+  async (_: number | string, thunkAPI) => {
     try {
-      const res = await axios.get(`/users/${_.userId}`);
+      const res = await axios.get(`/users/${_}`);
       return res.data
     } catch (error: unknown) {
       return thunkAPI.rejectWithValue({ error: error });
@@ -64,6 +64,18 @@ export const usersSlice = createSlice({
     builder.addCase(getUsers.fulfilled, (state, action) => {
       state.loading = ELoadingState.IDLE;
       state.users = action.payload
+    })
+    // getUser
+    builder.addCase(getUser.pending, (state, action) => {
+      state.loading = ELoadingState.LOADING;
+    });
+    builder.addCase(getUser.rejected, (state, action) => {
+      state.loading = ELoadingState.IDLE;
+      state.error = action.error.message
+    });
+    builder.addCase(getUser.fulfilled, (state, action) => {
+      state.loading = ELoadingState.IDLE;
+      state.user = action.payload
     })
   },
 });

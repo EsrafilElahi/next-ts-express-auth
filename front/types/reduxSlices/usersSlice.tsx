@@ -9,6 +9,7 @@ export type TUser = {
   firstName: string | undefined;
   lastName?: string | undefined;
   email: string | undefined;
+  _id?: string | undefined;
   job?: string | undefined;
   birthDate?: Date | string | undefined;
   age?: number | string | undefined;
@@ -26,7 +27,8 @@ export type TUsersSliceState = {
 
 export type TDataUsers = {
   msg: "string",
-  count: number,
-  totalPages: number,
-  users: TUser[]
+  count?: number,
+  totalPages?: number,
+  users?: TUser | TUser[]
+  user?: TUser
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Layout from 'components/Layout'
 import type { NextPageLayout } from 'pages/_app'
 import { useAppDispatch, useAppSelector } from "../../utils/reduxTools";
+import { useRouter } from 'next/router';
 import { getUsers } from 'redux/slices/usersSlice';
 import { TUser, TDataUsers } from 'types/reduxSlices/usersSlice';
 
@@ -12,7 +13,9 @@ const Users: NextPageLayout = (props: Props) => {
 
   const [page, setPage] = useState(1);
   const data: TDataUsers = useAppSelector(state => state.usersReducer.users);
+  const { users } = data
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const loadUsers = async () => {
     try {
@@ -28,6 +31,7 @@ const Users: NextPageLayout = (props: Props) => {
   }, [page])
 
   console.log('userslist in data page :', data.users);
+  console.log('page :', page);
 
   const handlePrevious = () => {
     if (page >= 2) {
@@ -53,8 +57,11 @@ const Users: NextPageLayout = (props: Props) => {
       <div className='w-full grow flex flex-col justify-start items-center gap-3 bg-slate-400 overflow-auto py-3'>
 
         {
-          data.users.map((user, ind) => (
-            <div key={user.email} className="flex flex-col justify-start items-start w-[90%] border border-solid p-3 rounded-md cursor-pointer hover:border-blue-500">
+          users.map((user: TUser, ind: number) => (
+            <div
+              onClick={() => router.push(`/users/${user._id}`, undefined, { shallow: true })}
+              key={user.email}
+              className="flex flex-col justify-start items-start w-[90%] border border-solid p-3 rounded-md cursor-pointer hover:border-blue-500">
               <span className='mb-2'>{++ind}</span>
               <span>name: {user.firstName}</span>
               <span>email: {user.email}</span>
