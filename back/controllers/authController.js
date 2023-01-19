@@ -41,7 +41,7 @@ const loginController = async (req, res) => {
     return res.status(400).send("validation error!");
   }
   // check user exist
-  const userExist = await Users.findOne({ email: data.email }).exec();
+  const userExist = await Users.findOne({ email: data.email }, { password: 0, createdAt: 0, updatedAt: 0, __v: 0, _id: 0 }).exec();
   !userExist && res.status(404).send("user not found!");
 
   // check password
@@ -52,20 +52,20 @@ const loginController = async (req, res) => {
     // create tokens
     const { accessToken, refreshToken } = await generateTokens(userExist);
 
-    const sendUser = {
-      firstName: userExist.firstName,
-      lastName: userExist.lastName,
-      email: userExist.email,
-      job: userExist.job,
-      birthDate: userExist.birthDate,
-      age: userExist.age,
-      gender: userExist.gender,
-      isAdmin: userExist.isAdmin,
-    };
+    // const sendUser = {
+    //   firstName: userExist.firstName,
+    //   lastName: userExist.lastName,
+    //   email: userExist.email,
+    //   job: userExist.job,
+    //   birthDate: userExist.birthDate,
+    //   age: userExist.age,
+    //   gender: userExist.gender,
+    //   isAdmin: userExist.isAdmin,
+    // };
 
-    console.log('sendUser :', sendUser);
+    console.log('userExist :', userExist);
 
-    res.status(200).json({ message: "login successfully!", user: sendUser, accessToken, refreshToken });
+    res.status(200).json({ message: "login successfully!", user: userExist, accessToken, refreshToken });
   } catch (err) {
     res.status(401).json({ message: "error login unauthorized!", error: err });
   }

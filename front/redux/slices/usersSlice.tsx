@@ -4,11 +4,15 @@ import axios from "utils/axios";
 import { TUser, TUsersSliceState, ELoadingState } from "types/reduxSlices/usersSlice";
 
 
+interface IData {
+  page: number,
+}
+
 export const getUsers = createAsyncThunk(
   "users/get",
-  async (_, thunkAPI) => {
+  async (_: IData, thunkAPI) => {
     try {
-      const res = await axios.get("/users");
+      const res = await axios.get(`/users?page=${_.page}&limit=${5}`);
       return res.data
     } catch (error: unknown) {
       return thunkAPI.rejectWithValue({ error: error });

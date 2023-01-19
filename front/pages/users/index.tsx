@@ -3,19 +3,20 @@ import Layout from 'components/Layout'
 import type { NextPageLayout } from 'pages/_app'
 import { useAppDispatch, useAppSelector } from "../../utils/reduxTools";
 import { getUsers } from 'redux/slices/usersSlice';
-import { TUser } from 'types/reduxSlices/usersSlice';
+import { TUser, TDataUsers } from 'types/reduxSlices/usersSlice';
 
 
 type Props = {}
 
 const Users: NextPageLayout = (props: Props) => {
 
-  const users = useAppSelector(state => state.usersReducer.users);
+  const [page, setPage] = useState(1);
+  const data: TDataUsers = useAppSelector(state => state.usersReducer.users);
   const dispatch = useAppDispatch();
 
   const loadUsers = async () => {
     try {
-      const res = await dispatch(getUsers()).unwrap();
+      const res = await dispatch(getUsers({ page: page })).unwrap();
       return res
     } catch (error) {
       console.log('err in load users :', error);
@@ -24,9 +25,27 @@ const Users: NextPageLayout = (props: Props) => {
 
   useEffect(() => {
     loadUsers();
-  }, [])
+  }, [page])
 
-  console.log('userslist in users page :', users)
+  console.log('userslist in data page :', data.users);
+
+  const handlePrevious = () => {
+    if (page >= 2) {
+      setPage(prev => prev - 1)
+    } else {
+      return;
+    }
+  }
+
+  const handleNext = () => {
+    console.log('page >= data.totalPages :', page >= data.totalPages);
+    if (page < data.totalPages) {
+      setPage(prev => prev + 1)
+    } else {
+      return;
+    }
+  }
+
 
 
   return (
@@ -35,20 +54,43 @@ const Users: NextPageLayout = (props: Props) => {
 
       <div className='w-full grow flex flex-col justify-start items-center gap-3 bg-slate-400 overflow-auto py-3'>
 
-        {/* {
-          users?.map((user: TUser) => {
-            <div className='w-full px-3 cursor-pointer'>
-              <span>1 : <br /> <strong>name : </strong>{user.firstName}<br /> <strong>email : </strong>{user.email}</span>
+        {
+          data.users.map((user, ind) => (
+            <div key={user.email} className="flex flex-col justify-start items-start w-[90%] border border-solid p-3 rounded-md cursor-pointer hover:border-blue-500">
+              <span className='mb-2'>{++ind}</span>
+              <span>name: {user.firstName}</span>
+              <span>email: {user.email}</span>
             </div>
-          })
-        } */}
-
+          ))
+        }
 
       </div>
 
       <div className='w-full flex justify-center gap-4'>
-        <span className='border border-slate-400 rounded-md px-3 py-1 cursor-pointer hover:border-slate-500 hover:text-slate-800'>before</span>
-        <span className='border border-slate-400 rounded-md px-3 py-1 cursor-pointer hover:border-slate-500 hover:text-slate-800'>after</span>
+        <button
+          className={`
+          border border-slate-400
+          rounded-md px-3 py-1 cursor-pointer
+          hover:border-slate-500
+          hover:text-slate-800
+          ${page === 1 && 'text-red-600 cursor-auto hover:border-slate-400 hover:text-red-600'}
+           `}
+          onClick={() => handlePrevious()}
+        >
+          prev
+        </button>
+        <span
+          className={`
+          border border-slate-400 
+          rounded-md px-3 py-1 cursor-pointer
+          hover:border-slate-500 
+          hover:text-slate-800
+          ${page >= data.totalPages && 'text-red-600 cursor-auto hover:border-slate-400 hover:text-red-600'}
+          `}
+          onClick={() => handleNext()}
+        >
+          next
+        </span>
       </div>
     </div>
   )

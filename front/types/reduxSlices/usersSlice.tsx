@@ -9,8 +9,6 @@ export type TUser = {
   firstName: string | undefined;
   lastName?: string | undefined;
   email: string | undefined;
-  password: string | undefined;
-  passwordConfirm?: string | undefined;
   job?: string | undefined;
   birthDate?: Date | string | undefined;
   age?: number | string | undefined;
@@ -24,3 +22,10 @@ export type TUsersSliceState = {
   loading: ELoadingState;
   error: null | unknown | any;
 };
+
+export type TDataUsers = {
+  msg: "string",
+  count: number,
+  totalPages: number,
+  users: TUser[]
+}
