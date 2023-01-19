@@ -31,7 +31,6 @@ axiosInstance.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    console.log('errrrrrrrrrrrrrrrrrrrrrrrrrrrrrr in res in axios :', error)
     if (error.response.status === 403 || error.response.status === 401) {
       // here we must get new accessToken with refreshToken
       const refreshToken = localStorage.getItem("refreshToken");

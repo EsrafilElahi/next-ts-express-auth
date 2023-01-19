@@ -38,14 +38,12 @@ const Users: NextPageLayout = (props: Props) => {
   }
 
   const handleNext = () => {
-    console.log('page >= data.totalPages :', page >= data.totalPages);
     if (page < data.totalPages) {
       setPage(prev => prev + 1)
     } else {
       return;
     }
   }
-
 
 
   return (
