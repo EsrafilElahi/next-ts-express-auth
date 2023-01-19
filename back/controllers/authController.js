@@ -52,17 +52,6 @@ const loginController = async (req, res) => {
     // create tokens
     const { accessToken, refreshToken } = await generateTokens(userExist);
 
-    // const sendUser = {
-    //   firstName: userExist.firstName,
-    //   lastName: userExist.lastName,
-    //   email: userExist.email,
-    //   job: userExist.job,
-    //   birthDate: userExist.birthDate,
-    //   age: userExist.age,
-    //   gender: userExist.gender,
-    //   isAdmin: userExist.isAdmin,
-    // };
-
     console.log('userExist :', userExist);
 
     res.status(200).json({ message: "login successfully!", user: userExist, accessToken, refreshToken });
@@ -109,6 +98,10 @@ const forgotPasswordController = async (req, res) => {
 }
 
 const resetPasswordController = async (req, res) => {
+
+
+  console.log(req.body.data);
+
   const token = req.params.token;
   !token && res.status(401).send("no token found!")
 
@@ -118,8 +111,8 @@ const resetPasswordController = async (req, res) => {
     res.status(403).send("fobidden, doesn't permission");
   }
 
-  // check password with passwordConfirm
-  if (req.body.password !== req.body.passwordConfirm) {
+  // check password with confirmPass
+  if (req.body.data.pass !== req.body.data.confirmPass) {
     res.status(422).send("two passwords are not same!");
   }
 
@@ -129,7 +122,7 @@ const resetPasswordController = async (req, res) => {
 
     // hashed password
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const hashedPassword = await bcrypt.hash(req.body.data.pass, salt);
 
     user.password = hashedPassword;
     await user.save();

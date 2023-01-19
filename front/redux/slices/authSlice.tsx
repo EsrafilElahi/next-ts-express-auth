@@ -30,6 +30,24 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+interface IResetPassword {
+  pass: string | number,
+  confirmPass: string | number
+}
+
+export const resetPassword = createAsyncThunk(
+  "auth/reset-password",
+  async (data: IResetPassword, thunkAPI) => {
+    try {
+      const refreshToken = localStorage.getItem("refreshToken");
+      const res = await axios.post(`/auth/reset-password/${refreshToken}`, { data });
+      return res.data;
+    } catch (error: unknown) {
+      return thunkAPI.rejectWithValue({ error: error });
+    }
+  }
+);
+
 const internalInitialState: TAuthSliceState = {
   accessToken: null,
   refreshToken: null,
@@ -59,6 +77,19 @@ export const authSlice = createSlice({
       state.error = action.error.message
     });
     builder.addCase(registerUser.fulfilled, (state, action) => {
+      state.loading = ELoadingState.IDLE;
+      // state.me = action.payload?.user
+    })
+
+    // resetPassword
+    builder.addCase(resetPassword.pending, (state, action) => {
+      state.loading = ELoadingState.LOADING;
+    });
+    builder.addCase(resetPassword.rejected, (state, action) => {
+      state.loading = ELoadingState.IDLE;
+      state.error = action.error.message
+    });
+    builder.addCase(resetPassword.fulfilled, (state, action) => {
       state.loading = ELoadingState.IDLE;
       // state.me = action.payload?.user
     })
