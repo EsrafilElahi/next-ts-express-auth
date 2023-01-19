@@ -79,7 +79,7 @@ const Users: NextPageLayout = (props: Props) => {
         >
           prev
         </button>
-        <span
+        <button
           className={`
           border border-slate-400 
           rounded-md px-3 py-1 cursor-pointer
@@ -90,7 +90,7 @@ const Users: NextPageLayout = (props: Props) => {
           onClick={() => handleNext()}
         >
           next
-        </span>
+        </button>
       </div>
     </div>
   )
