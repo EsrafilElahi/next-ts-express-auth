@@ -16,7 +16,7 @@ const Logout: NextPageLayout = ({ }: Props) => {
     try {
       const refreshToken = localStorage.getItem("refreshToken")
       const res = await dispatch(logoutUser(refreshToken || 'test'))
-      console.log('res logout page :', res)
+      console.log('res in logout page :', res)
     } catch (error) {
       console.log('err in logout :', error);
     }
