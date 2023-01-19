@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import axios from "utils/axios";
 // import type { PayloadAction, SerializedError, Draft } from "@reduxjs/toolkit";
-import { TAuthSliceState, ELoadingState, TUserRegister, TUserLogin } from "types/reduxSlices/suthSlice";
+import { TAuthSliceState, ELoadingState, TUserRegister, TUserLogin } from "types/reduxSlices/authSlice";
 
 export const registerUser = createAsyncThunk(
   "auth/register",

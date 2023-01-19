@@ -2,8 +2,9 @@ const Users = require("../models/users")
 
 const getUsersController = async (req, res) => {
   try {
-    const users = await Users.find();
+    const users = await Users.find({}, { password: 0, createdAt: 0, updatedAt: 0, __v: 0, _id: 0 }).exec();
     !users && res.status(404).send("no users found!");
+
     res.status(200).json({ msg: "all users", count: users.length, users: users })
   } catch (err) {
     res.status(500).json({ msg: "error in get users", error: err })

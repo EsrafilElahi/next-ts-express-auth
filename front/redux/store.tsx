@@ -5,6 +5,7 @@ import { createWrapper, MakeStore, HYDRATE } from "next-redux-wrapper";
 
 // import { userSlice } from "./slices/userSlice";
 import { authSlice } from "./slices/authSlice";
+import { usersSlice } from "./slices/usersSlice";
 
 const makeStore = () => {
   const isServer = typeof window === "undefined";
@@ -12,7 +13,7 @@ const makeStore = () => {
 
   const combinedReducers = combineReducers({
     authReducer: authSlice.reducer,
-    // userReducer: userSlice.reducer,
+    usersReducer: usersSlice.reducer,
   });
 
   if (isServer) {

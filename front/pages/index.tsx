@@ -5,7 +5,7 @@ import Register from './auth/register'
 import Dashboard from './dashboard'
 import { useRouter } from 'next/router'
 import Layout from 'components/Layout'
-import type { TAuthSliceState } from 'types/reduxSlices/suthSlice'
+import type { TAuthSliceState } from 'types/reduxSlices/authSlice'
 import type { NextPageLayout } from './_app'
 import { useAppDispatch, useAppSelector } from "../utils/reduxTools";
 

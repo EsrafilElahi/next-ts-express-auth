@@ -2,7 +2,7 @@ import React, { useState, useEffect, ChangeEvent } from 'react'
 import Layout from 'components/Layout'
 import { useRouter } from 'next/router'
 import type { NextPageLayout } from 'pages/_app'
-import type { TUserRegister, TAuthSliceState } from 'types/reduxSlices/suthSlice'
+import type { TUserRegister, TAuthSliceState } from 'types/reduxSlices/authSlice'
 import { useAppDispatch, useAppSelector } from "utils/reduxTools";
 import { registerUser } from 'redux/slices/authSlice'
 

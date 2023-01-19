@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import Layout from 'components/Layout'
 import type { NextPageLayout } from 'pages/_app'
 import { useAppDispatch, useAppSelector } from "../../utils/reduxTools";
-import { changeIsLoggedIn } from 'redux/slices/authSlice';
 
 
 type Props = {}

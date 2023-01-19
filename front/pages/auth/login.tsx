@@ -3,7 +3,7 @@ import Layout from 'components/Layout'
 import { NextPageLayout } from '../_app'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import type { TUserLogin, TAuthSliceState } from 'types/reduxSlices/suthSlice'
+import type { TUserLogin, TAuthSliceState } from 'types/reduxSlices/authSlice'
 import { useAppDispatch, useAppSelector } from "utils/reduxTools";
 import { loginUser } from 'redux/slices/authSlice'
 
