@@ -1,12 +1,10 @@
 const jwt = require("jsonwebtoken");
 
 const authenticate = async (req, res, next) => {
-  
+
   const authHeader = req.headers.authorization;
   !authHeader && res.status(401).send("token not found in header --> unauthorized!");
   const token = authHeader?.split(" ")[1];
-
-  console.log("authHeader :", req.headers)
 
   try {
     const verifiedToken = jwt.verify(token, process.env.SECRET_KEY);

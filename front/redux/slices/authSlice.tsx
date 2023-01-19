@@ -22,7 +22,23 @@ export const loginUser = createAsyncThunk(
       const res = await axios.post("/auth/login", { data });
       localStorage.setItem("refreshToken", res.data.refreshToken);
       localStorage.setItem("accessToken", res.data.accessToken);
-      // console.log('res.data from redux login method :', res.data)
+      return res.data;
+    } catch (error: unknown) {
+      return thunkAPI.rejectWithValue({ error: error });
+    }
+  }
+);
+
+
+export const logoutUser = createAsyncThunk(
+  "auth/logout",
+  async (data: string | null, thunkAPI) => {
+    try {
+      const res = await axios.post("/auth/logout", { data });
+      if (res) {
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("accessToken");
+      }
       return res.data;
     } catch (error: unknown) {
       return thunkAPI.rejectWithValue({ error: error });
@@ -93,6 +109,22 @@ export const authSlice = createSlice({
       state.loading = ELoadingState.IDLE;
       // state.me = action.payload?.user
     })
+
+    // logoutUser
+    builder.addCase(logoutUser.pending, (state) => {
+      state.loading = ELoadingState.LOADING;
+    });
+    builder.addCase(logoutUser.rejected, (state, action) => {
+      state.loading = ELoadingState.IDLE;
+      state.error = action.error.message;
+    });
+    builder.addCase(logoutUser.fulfilled, (state, action) => {
+      reset();
+      // state.accessToken = null;
+      // state.refreshToken = null;
+      // state.isLoggedIn = false;
+      // state.me = null;
+    });
 
     // loginUser
     builder.addCase(loginUser.pending, (state) => {

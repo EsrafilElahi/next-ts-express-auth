@@ -35,26 +35,30 @@ const registerController = async (req, res) => {
 const loginController = async (req, res) => {
   const { data } = req.body;
 
+
   // check validator
   const error = validateLogin(data);
   if (error) {
     return res.status(400).send("validation error!");
   }
   // check user exist
-  const userExist = await Users.findOne({ email: data.email }, { password: 0, createdAt: 0, updatedAt: 0, __v: 0 }).exec();
+  const userExist = await Users.findOne({ email: req?.body?.data?.email }).exec();
   !userExist && res.status(404).send("user not found!");
 
   // check password
-  const validPassword = await bcrypt.compare(data.password, userExist.password);
+  const validPassword = await bcrypt.compare(req?.body?.data?.password, userExist.password);
   !validPassword && res.status(400).send("userName or password is not valid!");
 
   try {
     // create tokens
     const { accessToken, refreshToken } = await generateTokens(userExist);
 
+
+    const sendUser = await Users.findOne({ email: userExist.email }, { password: 0, createdAt: 0, updatedAt: 0, __v: 0 }).exec();
+
     console.log('userExist :', userExist);
 
-    res.status(200).json({ message: "login successfully!", user: userExist, accessToken, refreshToken });
+    res.status(200).json({ message: "login successfully!", user: sendUser, accessToken, refreshToken });
   } catch (err) {
     res.status(401).json({ message: "error login unauthorized!", error: err });
   }
@@ -63,8 +67,9 @@ const loginController = async (req, res) => {
 const logoutController = async (req, res) => {
   try {
 
+    console.log('req.bodyreq.bodyreq.bodyreq.bodyreq.body :', req.body);
     // check refresh token in db and delete the token
-    const refreshToken = await UserRefreshTokens.findOne({ token: req.body.refreshToken });
+    const refreshToken = await UserRefreshTokens.findOne({ token: req.body.data });
     !refreshToken && res.status(200).send("token not found - logged out successfully!");
 
     // remove the token

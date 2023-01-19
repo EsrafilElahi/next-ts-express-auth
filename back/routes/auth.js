@@ -7,7 +7,7 @@ const router = Router();
 // routes handle
 router.post("/register", registerController);
 router.post("/login", loginController);
-router.delete("/logout", logoutController)
+router.post("/logout", logoutController)
 router.post("/forgot-password", forgotPasswordController);
 router.post("/reset-password/:token", resetPasswordController)
 
