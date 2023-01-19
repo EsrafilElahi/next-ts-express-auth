@@ -18,6 +18,7 @@ export type TUser = {
 
 
 export type TUsersSliceState = {
+  user: null | TUser;
   users: TUser[];
   loading: ELoadingState;
   error: null | unknown | any;

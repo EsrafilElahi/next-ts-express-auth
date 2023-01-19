@@ -6,7 +6,7 @@ const getUsersController = async (req, res) => {
 
     console.log('req.query :', req.query);
 
-    const users = await Users.find({ ...req.query }, { password: 0, createdAt: 0, updatedAt: 0, __v: 0, _id: 0 })
+    const users = await Users.find({ ...req.query }, { password: 0, createdAt: 0, updatedAt: 0, __v: 0 })
       // We multiply the "limit" variables by one just to make sure we pass a number and not a string
       .limit(limit * 1)
       // I don't think i need to explain the math here
@@ -18,7 +18,6 @@ const getUsersController = async (req, res) => {
 
     const usersCount = await Users.countDocuments();
 
-    // const users = await Users.find({}, { password: 0, createdAt: 0, updatedAt: 0, __v: 0, _id: 0 }).exec();
     !users && res.status(404).send("no users found!");
 
     res.status(200).json({ msg: "all users", count: usersCount, totalPages: Math.ceil(usersCount / limit), users: users });

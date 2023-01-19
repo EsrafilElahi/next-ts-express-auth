@@ -41,7 +41,7 @@ const loginController = async (req, res) => {
     return res.status(400).send("validation error!");
   }
   // check user exist
-  const userExist = await Users.findOne({ email: data.email }, { password: 0, createdAt: 0, updatedAt: 0, __v: 0, _id: 0 }).exec();
+  const userExist = await Users.findOne({ email: data.email }, { password: 0, createdAt: 0, updatedAt: 0, __v: 0 }).exec();
   !userExist && res.status(404).send("user not found!");
 
   // check password
