@@ -1,0 +1,3 @@
+with expose 3000 run it
+without expose 3000 run it
+with expose 4000 in front run it
