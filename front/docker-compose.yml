@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  front-container:
+    # this is container
+    image: final-front:latest
+    restart: always
+    container_name: final-front
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=general-network"
+      - "traefik.http.routers.front-container.rule=Host(`${FRONT_URL:-front-auth.local.com}`)"
+      - "traefik.http.routers.front-container.service=front-container"
+      - "traefik.http.routers.front-container.entrypoints=web,websecure"
+      # - "traefik.http.routers.front-container.tls=true"
+      # - "traefik.http.routers.front-container.tls.certresolver=production"
+      - "traefik.http.services.front-container.loadbalancer.server.port=3000"
+
+    ports:
+      - 3000:3000
+
+    networks:
+      - general-network
+
+networks:
+  general-network:
+    external: true
