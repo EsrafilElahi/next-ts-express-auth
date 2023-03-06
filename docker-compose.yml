@@ -5,17 +5,14 @@ services:
     image: portainer/portainer-ce:latest
     restart: unless-stopped
     container_name: auth-portainer
-    # labels:
-    #   - "traefik.enable=true"
-    #   - "traefik.docker.network=ivisit-network"
-    #   # Frontend
-    #   - "traefik.http.routers.portainer.rule=Host(`${IVISIT_PORTAINER_DOMAIN:-ivisit-portainer.testlocal.ir}`)"
-    #   - "traefik.http.routers.portainer.service=portainer"
-    #   - "traefik.http.services.portainer.loadbalancer.server.port=9000"
-    #   # edge
-    #   - "traefik.http.routers.portaineredge.rule=Host(`${IVISIT_PORTAINER_EDGE_DOMAIN:-ivisit-portainer-edge.testlocal.ir}`)"
-    #   - "traefik.http.routers.portaineredge.service=portaineredge"
-    #   - "traefik.http.services.portaineredge.loadbalancer.server.port=8000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=general-network"
+      # Frontend
+      - "traefik.http.routers.portainer.rule=Host('portainer.testlocal.ir')"
+      - "traefik.http.routers.portainer.service=portainer"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+
 
     networks:
       - general-network
@@ -29,18 +26,19 @@ services:
   traefik:
     image: traefik:latest
     restart: unless-stopped
+    container_name: traefik
     volumes:
       - ./certs:/ssl-certs
-      - ./traefik_config:/etc/traefik
+      - ./traefik:/etc/traefik
       - ./traefik/log:/log/traefik.log
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - general-network
     labels:
-      - "traefik.http.routers.backend.rule=Host(`${TECH_TRAEFIK_DOMAIN:-techtraefik.testlocal.ir}`)"
-      - "traefik.http.routers.backend.service=backend@internal"
-      # - "traefik.http.services.backend.loadbalancer.server.port=80"
-      - "traefik.http.routers.backend.middlewares=auth"
+      - "traefik.http.routers.traefik.rule=Host('traefik.testlocal.ir')"
+      - "traefik.http.routers.traefik.service=traefik@internal"
+      # - "traefik.http.services.traefik.loadbalancer.server.port=80"
+      - "traefik.http.routers.traefik.middlewares=auth"
       - "traefik.http.middlewares.auth.basicauth.usersFile=/etc/traefik/users"
       - "traefik.docker.network=general-network"
 
@@ -49,24 +47,6 @@ services:
       - "0.0.0.0:443:443"
       # (Optional) Expose Dashboard
       - "8000:8000" # Don't do this in production! --> dashboard
-
-  # traefik2:
-  #     image: traefik:latest
-  #     container_name: traefik
-  #     restart: always
-  #     volumes:
-  #       - /var/run/docker.sock:/var/run/docker.sock
-  #       - ./traefik/traefik.toml:/traefik.toml
-  #       - ./traefik/acme.json:/acme.json
-  #     networks:
-  #       - general-network
-  #     labels:
-  #       - "traefik.frontend.rule=Host:techtraefik.testlocal.ir"
-  #       - "traefik.port=8000"
-  #     command: --docker --docker.domain=techtraefik.testlocal.ir
-  #     ports:
-  #       - 80:80
-  #       - 443:443
       
 # create network --> to use backend and frontend externally
 networks:

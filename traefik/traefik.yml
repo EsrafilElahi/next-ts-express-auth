@@ -26,7 +26,7 @@ entryPoints:
     address: :80
     # (Optional) Redirect to HTTPS
     # ---
-    #http:
+    # http:
     #  redirections:
     #    entryPoint:
     #      to: websecure
