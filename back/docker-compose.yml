@@ -46,6 +46,9 @@ services:
 
     env_file: .env
 
+    ports:
+      - 27017:27017
+
     environment:
       - PROJECT_PORT=5000
       - DB_USERNAME=next-express-ts-auth
