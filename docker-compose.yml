@@ -48,10 +48,14 @@ services:
       - "8000:8000" # Don't do this in production! --> dashboard
 
   back:
-    # this is container
-    build: ./back
-    restart: always
+    build:
+      context: ./back
+      dockerfile: final-back.dockerfile
+    image: final-back
+
     container_name: final-back
+
+    restart: always
 
     depends_on:
       - db
@@ -113,10 +117,17 @@ services:
       - general-network
 
   front:
-    # this is container
-    build: ./front
+    build:
+      context: ./front
+      dockerfile: final-front.dockerfile
+    image: final-front
+    
+    container_name: final-front
+
+    depends_on:
+      - back
+
     restart: always
-    # container_name: final-front
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=general-network"

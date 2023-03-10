@@ -4,6 +4,8 @@ COPY . .
 
 # RUN npm run build
 
+EXPOSE 5000
+
 # replace [entrypoint] file with [CMD] instruction
 # RUN chmod +x ./entrypoint*.sh
 
