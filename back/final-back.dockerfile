@@ -2,7 +2,7 @@ FROM back-deps:latest
 
 COPY . .
 
-RUN npm run build
+# RUN npm run build
 
 # replace [entrypoint] file with [CMD] instruction
 # RUN chmod +x ./entrypoint*.sh

@@ -47,11 +47,14 @@ services:
       # (Optional) Expose Dashboard
       - "8000:8000" # Don't do this in production! --> dashboard
 
-  front:
+  # front:
 
-  back:
+  # back:
 
-    # create network --> to use backend and frontend externally
+  # db:
+
+  
+# create network --> to use backend and frontend externally
 networks:
   general-network:
     name: general-network
