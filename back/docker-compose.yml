@@ -22,6 +22,9 @@ services:
     networks:
       - general-network
 
+  database:
+    
+
 networks:
   general-network:
     external: true
