@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  back-container:
+    # this is container
+    image: final-back:latest
+    restart: always
+    container_name: final-back
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=general-network"
+      - "traefik.http.routers.back-container.rule=Host(`${BACK_URL:-back-auth.local.com}`)"
+      - "traefik.http.routers.back-container.service=back-container"
+      - "traefik.http.routers.back-container.entrypoints=web,websecure"
+      # - "traefik.http.routers.back-container.tls=true"
+      # - "traefik.http.routers.back-container.tls.certresolver=production"
+      - "traefik.http.services.back-container.loadbalancer.server.port=3000"
+
+    ports:
+      - 3000:3000
+
+    networks:
+      - general-network
+
+networks:
+  general-network:
+    external: true
