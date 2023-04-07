@@ -27,9 +27,9 @@ services:
     restart: unless-stopped
     container_name: traefik
     volumes:
-      - ./certs:/ssl-certs
-      - ./traefik:/etc/traefik
-      - ./traefik/log:/log/traefik.log
+      - ./traefik/certs:/ssl-certs
+      - ./traefik/traefik:/etc/traefik
+      - ./traefik/traefik/log:/log/traefik.log
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - general-network
@@ -46,7 +46,6 @@ services:
       - "0.0.0.0:443:443"
       # (Optional) Expose Dashboard
       - "8000:8000" # Don't do this in production! --> dashboard
-
 
 # create network --> to use backend and frontend externally
 networks:
