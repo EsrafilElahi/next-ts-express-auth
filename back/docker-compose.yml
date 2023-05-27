@@ -6,7 +6,6 @@ services:
     image: final-back:latest
     restart: always
     container_name: final-back
-
     depends_on:
       - db
 
@@ -16,12 +15,12 @@ services:
       - DB_PASSWORD=1011221423iran
       - DB_BASE_URI=mongodb+srv://esrafil:1011221423iran@next-cluster.payj8wn.mongodb.net/?retryWrites=true&w=majority
       - SECRET_KEY=64sanf329lc436gs
-      - BACK_URL=back-auth.local.com
+      - BACK_URL=back-auth.local.ir
 
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=general-network"
-      - "traefik.http.routers.back-container.rule=Host(`${BACK_URL:-back-auth.local.com}`)"
+      - "traefik.http.routers.back-container.rule=Host(`${BACK_URL:-back-auth.local.ir}`)"
       - "traefik.http.routers.back-container.service=back-container"
       - "traefik.http.routers.back-container.entrypoints=web,websecure"
       # - "traefik.http.routers.back-container.tls=true"
@@ -30,10 +29,11 @@ services:
 
     ports:
       - 5000:5000
-
     volumes:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
+      - backend-static-files:/var/www/backend/static/:ro
+      - backend-media-files:/var/www/backend/media/:ro
 
     networks:
       - general-network
@@ -41,11 +41,8 @@ services:
   db:
     image: mongo:5.0.2
     container_name: db
-
     restart: unless-stopped
-
     env_file: .env
-
     ports:
       - 27017:27017
 
@@ -55,7 +52,7 @@ services:
       - DB_PASSWORD=1011221423iran
       - DB_BASE_URI=mongodb+srv://esrafil:1011221423iran@next-cluster.payj8wn.mongodb.net/?retryWrites=true&w=majority
       - SECRET_KEY=64sanf329lc436gs
-      - BACK_URL=back-auth.local.com
+      - BACK_URL=back-auth.local.ir
 
     volumes:
       - dbdata:/data/db
@@ -69,4 +66,9 @@ networks:
 
 volumes:
   dbdata:
-  node_modules:
+  node_modules: # created in root folder docker compose file - and used here
+
+  backend-static-files:
+    external: true
+  backend-media-files:
+    external: true

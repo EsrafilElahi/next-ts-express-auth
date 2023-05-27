@@ -24,8 +24,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(setHeadersOrigin);
 app.use(express.json());
 app.use(cookieparser());
-let publicDir = path.join(__dirname, "public");
+let publicDir = path.join(__dirname, "public"); // just concat the public to __dirname(url) => relative
+// let publicDir = path.resolve(__dirname, "public"); // this is  public to root of server => absolute
 app.use(express.static(publicDir));
+// app.use('/static', express.static(publicDir));
+// app.use('/media', express.static(publicDir));
 app.use(handleErrors);
 app.use(cors());
 

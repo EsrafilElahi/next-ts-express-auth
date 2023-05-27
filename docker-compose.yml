@@ -1,5 +1,13 @@
 version: "3.9"
 
+# containers list :
+# frontend  --> X
+# backend  ---> X
+# db  --------> X
+# portainer
+# traefik
+# nginx
+
 services:
   portainer:
     image: portainer/portainer-ce:latest
@@ -17,10 +25,10 @@ services:
       - general-network
 
     ports:
-      - ${PORTAINER_EXTERNAL_PORT:-9000}:9000
+      - 9000:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./portainer_data:/data
+      - portainer_data:/data
 
   traefik:
     image: traefik:latest
@@ -47,6 +55,39 @@ services:
       # (Optional) Expose Dashboard
       - "8000:8000" # Don't do this in production! --> dashboard
 
+  nginx:
+    build:
+      # folder name
+      context: nginx_config
+      dockerfile: Dockerfile
+    container_name: auth-nginx
+    restart: always
+
+    # for persist two data (static files, media files)
+    volumes:
+      - backend-static-files:/var/www/backend/static/:ro
+      - backend-media-files:/var/www/backend/media/:ro
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=general-network"
+      - "traefik.http.routers.frontendstatic.rule=Host('frontend-static.testlocal.ir') && (PathPrefix(`/static`) || PathPrefix(`/media`))"
+      - "traefik.http.routers.frontendstatic.service=frontendstatic"
+      - "traefik.http.routers.frontendstatic.entrypoints=web,websecure"
+      # - "traefik.http.routers.backend.tls=true"
+      # - "traefik.http.routers.backend.tls.certresolver=production"
+      - "traefik.http.services.frontendstatic.loadbalancer.server.port=80"
+
+      - "traefik.http.routers.backendstatic.rule=Host('backend-static.testlocal.ir') && (PathPrefix(`/static`) || PathPrefix(`/media`))"
+      - "traefik.http.routers.backendstatic.service=backendstatic"
+      - "traefik.http.routers.backendstatic.entrypoints=web,websecure"
+      # - "traefik.http.routers.backend.tls=true"
+      # - "traefik.http.routers.backend.tls.certresolver=production"
+      - "traefik.http.services.backendstatic.loadbalancer.server.port=80"
+
+    networks:
+      - general-network
+
 # create network --> to use backend and frontend externally
 networks:
   general-network:
@@ -58,5 +99,6 @@ networks:
         - subnet: 172.10.0.0/16
 
 volumes:
-  dbdata:
-  node_modules:
+  backend-static-files: # use this volume in backend docker compose file as external:true
+  backend-media-files: # use this volume in backend docker compose file as external:true
+  portainer_data:
