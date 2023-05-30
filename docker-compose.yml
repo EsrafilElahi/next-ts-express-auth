@@ -57,7 +57,7 @@ services:
 
   nginx:
     build:
-      # folder name
+      # context : directory name (area)
       context: nginx_config
       dockerfile: Dockerfile
     container_name: auth-nginx
@@ -65,7 +65,9 @@ services:
 
     # for persist two data (static files, media files)
     volumes:
+      # nginx create the "backend-static-files" directory on the host (server or nginx) inside the container
       - backend-static-files:/var/www/backend/static/:ro
+      # - backend-static-files:/usr/share/nginx/html/static:ro  -----> if use nginx host
       - backend-media-files:/var/www/backend/media/:ro
 
     labels:
