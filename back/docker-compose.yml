@@ -30,12 +30,12 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - .:/home/node/app
-#       - .:/app
-      - node_modules:/home/node/app/node_modules
-#       - node_modules:/app/node_modules
-      - backend-static-files:/app/static/:ro
-      - backend-media-files:/app/media/:ro
+#       - .:/home/node/app
+      - .:/app
+#       - node_modules:/home/node/app/node_modules
+      - node_modules:/app/node_modules
+      - backend-static-files:/app/static/
+      - backend-media-files:/app/media/
 
     networks:
       - general-network
