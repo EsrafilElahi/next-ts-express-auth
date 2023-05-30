@@ -62,6 +62,10 @@ services:
       dockerfile: Dockerfile
     container_name: auth-nginx
     restart: always
+    
+#     depends_on:
+#       - api
+#       - client
 
     # for persist two data (static files, media files)
     volumes:

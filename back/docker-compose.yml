@@ -30,9 +30,16 @@ services:
     ports:
       - 5000:5000
     volumes:
+<<<<<<< HEAD
       - .:/app
       - node_modules:/app/node_modules
       # nginx create the "backend-static-files" directory on the /app/static/ directory inside the container
+=======
+#       - .:/home/node/app
+      - .:/app
+#       - node_modules:/home/node/app/node_modules
+      - node_modules:/app/node_modules
+>>>>>>> 8004b661234199ed391a649e0d8af468b4e96aec
       - backend-static-files:/app/static/
       - backend-media-files:/app/media/
 
