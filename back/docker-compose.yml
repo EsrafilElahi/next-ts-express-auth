@@ -31,7 +31,9 @@ services:
       - 5000:5000
     volumes:
       - .:/home/node/app
+#       - .:/app
       - node_modules:/home/node/app/node_modules
+#       - node_modules:/app/node_modules
       - backend-static-files:/var/www/backend/static/:ro
       - backend-media-files:/var/www/backend/media/:ro
 
