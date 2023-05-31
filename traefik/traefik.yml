@@ -158,8 +158,8 @@ certificatesResolvers:
 providers:
   # Enable Docker configuration backend
   docker:
-    exposedByDefault: false
     endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
     # Docker server endpoint. Can be a tcp or a unix socket endpoint.
     #
     # Required
