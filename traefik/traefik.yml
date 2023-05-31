@@ -165,7 +165,7 @@ providers:
     # Required
     # Default: "unix:///var/run/docker.sock"
     #
-#    endpoint: tcp://10.10.10.10:2375
+    # endpoint: tcp://10.10.10.10:2375
 
 # Default host rule.
 #
