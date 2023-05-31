@@ -62,15 +62,17 @@ services:
       dockerfile: Dockerfile
     container_name: auth-nginx
     restart: always
-    
-#     depends_on:
-#       - api
-#       - client
+
+    #     depends_on:
+    #       - api
+    #       - client
 
     # for persist two data (static files, media files)
     volumes:
-      # nginx create the "backend-static-files" directory on the host (server or nginx) inside the container
+      # container : like virtual machine (complete linux os) on the docker container
+      # nginx create the "backend-static-files" directory in the /var/www/backend/static/ on nginx-docker-container
       - backend-static-files:/var/www/backend/static/:ro
+      # nginx create the "backend-static-files" directory in the /usr/share/nginx/html/static/ on nginx-docker-container
       # - backend-static-files:/usr/share/nginx/html/static:ro  -----> if use nginx host
       - backend-media-files:/var/www/backend/media/:ro
 

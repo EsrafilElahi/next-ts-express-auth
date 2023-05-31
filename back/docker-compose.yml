@@ -30,10 +30,9 @@ services:
     ports:
       - 5000:5000
     volumes:
-#       - .:/home/node/app
       - .:/app
-#       - node_modules:/home/node/app/node_modules
       - node_modules:/app/node_modules
+      # create static and media insode the docker container
       - backend-static-files:/app/static/
       - backend-media-files:/app/media/
 
