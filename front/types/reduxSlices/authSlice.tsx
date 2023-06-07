@@ -12,7 +12,7 @@ export type TUserRegister = {
   password: string | undefined;
   passwordConfirm?: string | undefined;
   job?: string | undefined;
-  birthDate?: Date | string | undefined;
+  birthDate?: string | undefined;
   age?: number | string | undefined;
   gender?: string | "male" | "female";
   isAdmin?: boolean | undefined;

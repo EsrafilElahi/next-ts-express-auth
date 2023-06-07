@@ -11,7 +11,7 @@ type Props = {}
 
 const Users: NextPageLayout = (props: Props) => {
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState<number>(1);
   const data: TDataUsers = useAppSelector(state => state.usersReducer.users);
   const { users } = data
   const dispatch = useAppDispatch();

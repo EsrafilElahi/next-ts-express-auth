@@ -1,4 +1,3 @@
-import type { SerializedError } from "@reduxjs/toolkit";
 
 export enum ELoadingState {
   IDLE = "idle",
@@ -28,7 +27,7 @@ export type TUsersSliceState = {
 export type TDataUsers = {
   msg: "string",
   count?: number,
-  totalPages?: number,
-  users?: TUser | TUser[]
+  totalPages?: number | undefined | any,
+  users?: TUser | TUser[] | any
   user?: TUser
 }

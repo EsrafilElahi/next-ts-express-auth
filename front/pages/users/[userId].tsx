@@ -25,7 +25,8 @@ const UserDetails: NextPageLayout = () => {
 
   useEffect(() => {
     if (Router) {
-      loadUser(router.query.userId)
+      const id = parseInt(router.query.userId as string, 10)
+      loadUser(id)
     }
   }, [Router.query.userId])
 
