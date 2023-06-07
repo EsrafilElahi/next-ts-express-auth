@@ -4,16 +4,16 @@ services:
   front-container:
     build:
       context: .
+      target: runner
       dockerfile: dev.dockerfile
 
     restart: always
+    command: npm run dev
     volumes:
-      - ./:/app
-      - /app/node_modules
-      - /app/.next
-      - /app/next.config.js
-      - /app/public
+      - .:/app
 
+    environment:
+      NODE_ENV: development
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=general-network"
