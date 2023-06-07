@@ -5,7 +5,10 @@ services:
     # this is container
     image: final-front:latest
     restart: always
-    container_name: final-front
+    container_name: final-auth-front
+
+    volumes: -.:/app
+
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=general-network"
