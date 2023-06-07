@@ -17,7 +17,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=general-network"
-      - "traefik.http.routers.front-container.rule=Host(`front-auth.testlocal.ir`)"
+      - "traefik.http.routers.front-container.rule=Host(`front-auth.local.ir`)"
       - "traefik.http.routers.front-container.service=front-container"
       - "traefik.http.routers.front-container.entrypoints=web,websecure"
       # - "traefik.http.routers.front-container.tls=true"

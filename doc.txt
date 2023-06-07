@@ -7,3 +7,7 @@
 # portainer
 # traefik
 # nginx
+
+set host local : 
+  cd /etc
+  nano hosts
