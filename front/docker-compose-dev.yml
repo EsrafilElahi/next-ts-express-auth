@@ -2,10 +2,17 @@ version: '3.9'
 
 services:
   front-container:
-    # this is container
-    image: final-front:latest
+    build:
+      context: .
+      dockerfile: dev.dockerfile
+
     restart: always
-    container_name: final-front
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
+      - /app/next.config.js
+      - /app/public
 
     labels:
       - "traefik.enable=true"
