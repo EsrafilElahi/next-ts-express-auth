@@ -5,7 +5,7 @@ services:
     # this is container
     image: final-front:latest
     restart: always
-    container_name: final-front
+    container_name: final-front-auth
 
     labels:
       - "traefik.enable=true"

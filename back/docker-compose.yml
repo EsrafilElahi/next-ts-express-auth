@@ -5,7 +5,7 @@ services:
     # this is container
     image: final-back:latest
     restart: always
-    container_name: final-back
+    container_name: final-back-auth
     depends_on:
       - db
 
