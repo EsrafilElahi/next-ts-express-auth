@@ -3,7 +3,7 @@ version: "3.9"
 # containers list :
 # frontend  --> X
 # backend  ---> X
-# db  --------> X
+# db  --------> put db service into thos compose
 # portainer
 # traefik
 # nginx
