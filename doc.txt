@@ -1,9 +1,9 @@
 
 # containers list :
 
-# frontend  --> X
+# frontend ---> X
 # backend  ---> X
-# db  --------> X
+# db       ---> X
 # portainer
 # traefik
 # nginx
