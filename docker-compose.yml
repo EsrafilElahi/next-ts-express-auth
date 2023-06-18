@@ -32,7 +32,7 @@ services:
   traefik:
     image: traefik:latest
     restart: unless-stopped
-    container_name: traefik
+    container_name: auth-traefik
     volumes:
       - ./traefik/certs:/ssl-certs
       - ./traefik/traefik:/etc/traefik

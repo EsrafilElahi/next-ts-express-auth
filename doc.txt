@@ -11,3 +11,7 @@
 set host local : 
   cd /etc
   nano hosts
+
+portainer config:
+  username: admin
+  password: default my password
