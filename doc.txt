@@ -3,7 +3,7 @@
 
 # frontend ---> X
 # backend  ---> X
-# db       ---> X
+# db       ---> into this
 # portainer
 # traefik
 # nginx
