@@ -8,7 +8,6 @@ version: "3.9"
 # traefik
 # nginx
 
-
 services:
   portainer:
     image: portainer/portainer-ce:latest
