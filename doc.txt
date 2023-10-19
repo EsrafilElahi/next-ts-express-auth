@@ -8,7 +8,7 @@
 # traefik
 # nginx
 
-set host local : 
+set host local :
   cd /etc
   nano hosts
 
